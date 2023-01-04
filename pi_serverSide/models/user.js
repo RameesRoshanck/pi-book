@@ -1,0 +1,76 @@
+const Mongoose=require ('mongoose')
+
+
+const userSchema=new Mongoose.Schema({
+    username:{
+        type:String,
+        required:true
+    },
+    email:{
+        type:String,
+        required:true
+    },
+    phone:{
+        type:Number,
+        require:true
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now()
+    },
+    status:{
+        type:Boolean,
+        required:true
+    },
+    resetToken:{
+        type:String
+    },
+    expireToken:{
+        type:Date
+    },
+    verified:{
+        type:Boolean
+    },
+    profilePicture:{
+        type:String,
+        default:""
+    },
+    coverPicture:{
+        type:String,
+        default:"" 
+    },
+    followers:{
+        type:Array,
+        default:[]
+    },
+    followings:{
+        type:Array,
+        default:[]
+    },
+    isAdmin:{
+        type:Boolean,
+        default:false
+    },
+    desc:{
+        type:String,
+        max:50
+    },
+    city:{
+        type:String,
+        max:50
+    },
+    from:{
+        type:String,
+        max:50
+    },
+    relationship:{
+        type:String,
+        default:"Single"
+    }
+})
+
+module.exports=Mongoose.model('user',userSchema)

@@ -1,0 +1,113 @@
+.rightBar{
+    width: 24%;
+    height:800px;
+    border-radius: 10px;    
+    box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.37);
+    -webkit-box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.37);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: fixed;
+}
+.rightBar::-webkit-scrollbar{
+    display: none;
+}
+
+
+.rightBarWrapper{
+    padding: 15px;
+}
+.rightBar1{
+    width: 100%;
+    height:800px;
+    border-radius: 10px;    
+    box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.37);
+    -webkit-box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.37);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.rightBar1::-webkit-scrollbar{
+    display: none;
+}
+
+
+.rightBarWrapper1{
+    padding: 15px;
+}
+.rightBarFriendsList{
+    padding: 0;
+    margin: 0;
+    list-style:none;
+}
+.rightbarFriends{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.rightbarProfileImageContainer{
+    margin-right: 10px;
+    position: relative;
+}
+.rightBarProfileImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.rightBarOnline{
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: limegreen;
+    position: absolute;
+    top: 0px;
+    right: 0;
+    border: 2px solid white;
+}
+.rightBarUserName{
+  font-weight: 500;
+  margin-right: auto;
+
+}
+
+.profileRightBarTitle{
+    font-size: 18px;
+    font-weight: 500px;
+    margin-bottom: 10px;
+    /* position: -webkit-sticky;
+    position: sticky;
+    top: 0; */
+}
+.profileRightBarTitle:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.rightbarInfPlace{
+    font-weight: 500;
+    margin-right: 15px;
+    color: #555;
+}
+.rightbarInfPlaceName{
+    font-weight: 300;
+    color: #555;
+}
+.rightBarFollowings{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.rightBarFollowing{
+    display: flex;
+    flex-direction: column;
+    margin-bottom:20px;
+    cursor: pointer;
+    padding-left: 6px;
+}
+.rightBarFollowingImage{
+    width: 100px;
+    height: 100Px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.rightBarFollowingName{
+    max-width: 10px;
+}

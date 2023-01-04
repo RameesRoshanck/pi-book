@@ -1,0 +1,26 @@
+{
+  "name": "pi_serverside",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoos": "^0.0.1-security",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.8.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "nodemon": "^2.0.20"
+  }
+}

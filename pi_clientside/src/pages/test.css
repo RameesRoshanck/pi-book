@@ -1,0 +1,11 @@
+.header {
+    width: 100%;
+    background-color: white;
+    border-bottom-style: solid;
+    border-bottom-color: #dcdcdc;
+    border-bottom-width: 2px;
+    height: 67px;
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+  }
