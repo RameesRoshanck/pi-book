@@ -64,8 +64,9 @@ const likePost=async(req,res)=>{
     try{
         let postId=req.params.id
         let userId=req.body.userId
+        console.log(req.params.id,req.body.userId);
         let post=await Post.findById(postId)
-        // console.log(post,'post');
+        console.log(post,'post');
         if(!post.like.includes(userId)){
             await Post.updateOne({$push:{like:userId}})
             return res.status(200).json({message:"your post has been liked"}) 

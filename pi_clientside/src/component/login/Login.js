@@ -14,9 +14,9 @@ function Login() {
 
 
   const {authUser,setAuthUser}=useContext(UserAuthContext)
-  useEffect(()=>{
-    console.log(authUser,'usercontext');
-  })
+  // useEffect(()=>{
+  //   console.log(authUser,'usercontext');
+  // })
 
 
 
@@ -63,6 +63,7 @@ function Login() {
              toast("incorect password",toastOptions)
           }else{
             setAuthUser(result.data.user)
+            localStorage.setItem('user',result.data.user)
             navigate("/home")
           }
         }).catch((error)=>{
@@ -82,6 +83,7 @@ function Login() {
           name='email' 
           value={login.email}
           onChange={handleChange}
+          placeholder="ckmhdroshan@gmail.com"
           id="email"
           type='email'
           variant="standard" />
@@ -93,6 +95,7 @@ function Login() {
           name='password'
           value={login.password}
           onChange={handleChange}
+          placeholder="987"
           type="password"
           id="password"
           autoComplete="current-password"

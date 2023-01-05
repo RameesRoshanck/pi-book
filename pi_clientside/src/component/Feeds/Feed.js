@@ -1,28 +1,32 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import Getpost from '../Getpost/Getpost'
 import Post from '../Post/Post'
 import Status from '../status/Status'
 import './feed.css'
 // import {Posts} from '../../Dummydata'
 import axios from 'axios'
+import { UserAuthContext } from '../../Context/UserContext'
 
 
 function Feed({userStatus,username}) {
 // console.log(Posts,'feed posts');
       const [post,setPost]=useState([])
         // console.log(username,'.......');
+        const {authUser,setAuthUser}=useContext(UserAuthContext)
+//  console.log(authUser,'feeds');
+
       useEffect(()=>{
       let fetchPost=async()=>{
         let res=username ?
         await axios.get("/profile/"+username)
         :
-        await axios.get("/getTimeline/63ad765b0a0ecda115fed9ab")
+        await axios.get("/getTimeline/"+authUser._id)
         setPost(res.data)
         // console.log(res.data);
         // console.log(username);
        }
        fetchPost()
-      },[username])
+      },[username,authUser._id])
 
   const AddStatus=()=>{
     return(

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './getpost.css'
 import image from '../../assets/elonmask.jpeg'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import { format} from 'timeago.js';
 import { Link } from 'react-router-dom';
+import { UserAuthContext } from '../../Context/UserContext';
 
 function Getpost({post}) {
 
@@ -19,8 +20,21 @@ function Getpost({post}) {
     const [islike,setIslike]=useState(false)
     const [user,setUser]=useState({})
     const PF=process.env.REACT_APP_PUBLIC_FOLDER;
+    const {authUser,setAuthUser}=useContext(UserAuthContext)
 
-    const likeSubmit=()=>{
+    useEffect(()=>{
+        setIslike(post.like.includes(authUser._id))
+    },[authUser._id,post.like])
+
+    const likeSubmit=async()=>{
+        try{
+         await axios.put("/userlike/"+post._id+"/like",{userId:authUser._id}).then((result)=>{
+            console.log(result.data.message);
+            setLike(result)
+          })
+        }catch(error){
+            console.log(error,'likeSubmit');
+        }
         setLike(islike ? like-1:like+1)
         setIslike(!islike) // it means or setislike(islike===false)
     }
@@ -43,7 +57,7 @@ function Getpost({post}) {
             <div className="getPostTop">
                 <div className="postTopLeft">
                     <Link to={`profile/${user.username}`}>
-                    <img src={user.profilePicture || PF+"sampleImg/elonmask.jpeg" } alt="images" className='getPostProfielImg'/>
+                    <img src={user.profilePicture? PF+user.profilePicture : PF+"sampleImg/noAvatar.jpg" } alt="images" className='getPostProfielImg'/>
                     </Link>
                     <div>
                         <p className='postUserName' >{user.username}</p>

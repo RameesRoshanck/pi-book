@@ -15,9 +15,9 @@ import { UserAuthContext } from '../Context/UserContext'
 function HomePage() {
 
   const {authUser,setAuthUser}=useContext(UserAuthContext)
-  useEffect(()=>{
-    console.log(authUser,'usercontext');
-  })
+  // useEffect(()=>{
+  //   console.log(authUser,'usercontext');
+  // })
 
   
   return (
