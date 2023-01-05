@@ -56,7 +56,7 @@ function Login() {
         setLoginErr(true)
         return false
        }else{
-        await axios.post("http://localhost:8000",login).then((result)=>{
+        await axios.post("http://localhost:8000/",login).then((result)=>{
           if(result.data.message==='Incorrect email Id'){
              toast("Incorrect email Id",toastOptions)
           }else if(result.data.message==='incorect password'){

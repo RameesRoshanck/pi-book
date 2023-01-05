@@ -10,10 +10,12 @@ const postSchema=new Mongoose.Schema({
         required:true
     },
     img:{
-        type:Array
+        type:Array,
+        default:"" 
     },
     video:{
-        type:Array
+        type:Array,
+        default:"" 
     },
     like:{
         type:Array,

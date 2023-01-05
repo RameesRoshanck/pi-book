@@ -28,7 +28,7 @@ function Getpost({post}) {
 
     const likeSubmit=async()=>{
         try{
-         await axios.put("/userlike/"+post._id+"/like",{userId:authUser._id}).then((result)=>{
+         await axios.put("http://localhost:8000/userlike/"+post._id+"/like",{userId:authUser._id}).then((result)=>{
             console.log(result.data.message);
             setLike(result)
           })
@@ -41,15 +41,17 @@ function Getpost({post}) {
 
     useEffect(()=>{
         let fetchUser=async()=>{
-          let res=await axios.get(`/singleUser?userId=${post.userId}`)
+          let res=await axios.get(`http://localhost:8000/singleUser?userId=${post.userId}`)
           setUser(res.data.user)
         //   console.log(res.data.user,'getPost');
          }
         //  console.log('hai');
          fetchUser()
         },[post.userId])
-
     
+        
+        console.log(PF,'pf');
+    console.log(PF+post.img,'image');
 
   return (
     <div className='getpost'>
@@ -70,7 +72,7 @@ function Getpost({post}) {
             </div>
             <div className="getPostCenter my-2">
                 <span className="postText">{post?.desc}</span>
-                <img src={PF+post.img || PF+post.video} alt="images" className='post-image mt-2'/>
+                <img src={PF+post.img} alt="images" className='post-image mt-2'/>
             </div>
             <div className="getPostBottom mt-7">
                 <div className="postbottomLeft p-2 flex justify-between">

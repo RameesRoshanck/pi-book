@@ -59,7 +59,6 @@ const Signup=async(req,res)=>{
 
 
 const login=async(req,res)=>{
-    // console.log(req.body,'login');
     const {email,password}=req.body
     try{
         if(!(email && password)){

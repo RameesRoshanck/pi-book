@@ -21,7 +21,7 @@ function ProfilePage() {
 
     useEffect(()=>{
         const fetchUser=async()=>{
-          let res=await axios.get(`/singleUser?username=${username}`)
+          let res=await axios.get(`http://localhost:8000/singleUser?username=${username}`)
         //   singleUser?userId=${post.userId}
           setUser(res.data.user)
         //   console.log(res.data.user.username);

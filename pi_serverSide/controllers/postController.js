@@ -6,9 +6,10 @@ const User=require ('../models/user')
 //create post
 const addPost=async(req,res)=>{
     try{
+        console.log(req.body);
          const post=await new Post(req.body)
-        await post.save()
-        return res.status(200).json({message:"successfully insert the post",post})
+        await post.save()     
+        return res.status(200).json({message:"successfully insert the post"})
 
     }catch(error){
         console.log(error,'addpost');

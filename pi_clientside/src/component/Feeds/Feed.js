@@ -18,10 +18,12 @@ function Feed({userStatus,username}) {
       useEffect(()=>{
       let fetchPost=async()=>{
         let res=username ?
-        await axios.get("/profile/"+username)
+        await axios.get("http://localhost:8000/profile/"+username)
         :
-        await axios.get("/getTimeline/"+authUser._id)
-        setPost(res.data)
+        await axios.get("http://localhost:8000/getTimeline/"+authUser._id)
+        setPost(res.data.sort((p1,p2)=>{
+          return new Date(p2.createdAt)-new Date(p1.createdAt)
+        }))
         // console.log(res.data);
         // console.log(username);
        }
