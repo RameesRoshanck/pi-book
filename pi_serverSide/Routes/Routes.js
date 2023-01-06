@@ -3,15 +3,20 @@ const { addPost, updatePost, deletePost, likePost, getPost, getTimeLine, getAllP
 const {login, Signup, resetpass, getReset,verifyOtp } = require('../controllers/authController')
 const router=express.Router()
 const multer = require("multer");
-const { getSingleUser, followUser, unFollowUser } = require('../controllers/userController')
+const { getSingleUser, followUser, unFollowUser,allUsers, getFriends } = require('../controllers/userController')
 
 
 
 /* ------------------------------ //auth routes ----------------------------- */
+//user signup
 router.post('/Signup',Signup)
+//user login
 router.post('/',login)
+//user reset
 router.post('/reset',resetpass)
+//user reset new password
 router.post('/resetNew',getReset)
+//user email verification in otp
 router.post('/verifyotp',verifyOtp)
 
 
@@ -21,6 +26,10 @@ router.post('/verifyotp',verifyOtp)
 
 //get single user
 router.get('/singleUser',getSingleUser)
+//get  all users
+router.get('/allUsers',allUsers)
+//get all friends
+router.get('/getFriends/:id',getFriends)
 //follow
 router.put("/followUser/:id/follow",followUser)
 //unfollow

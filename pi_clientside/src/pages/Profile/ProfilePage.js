@@ -18,13 +18,13 @@ function ProfilePage() {
     const [user,setUser]=useState({})
     const PF=process.env.REACT_APP_PUBLIC_FOLDER;
     const username=useParams().username
-
+    // const username="ramees"
     useEffect(()=>{
         const fetchUser=async()=>{
           let res=await axios.get(`http://localhost:8000/singleUser?username=${username}`)
         //   singleUser?userId=${post.userId}
           setUser(res.data.user)
-        //   console.log(res.data.user.username);
+        //   console.log(res.data.user.username,'sdfasdfasdf===_________________=');
         //   console.log('hello working');
         }
         fetchUser()
@@ -42,8 +42,8 @@ function ProfilePage() {
                 <Grid item sm={12} md={12} className="profile">
                     <Grid item sm={12} md={12} className="profileTop">
                         <Grid className="profileCover">
-                            <img src={user.coverPicture || PF +"sampleImg/noCoverimg.jpg"} alt="coverPhoto" className='profileCoverPhoto' />
-                            <img src={user.profilePicture || PF +"sampleImg/noAvatar.jpg" } alt="ProfilePhoto" className='profileCoverUserImage' />
+                            <img src={user.coverPicture ? PF+user.coverPicture : PF +"sampleImg/noCoverimg.jpg"} alt="coverPhoto" className='profileCoverPhoto' />
+                            <img src={user.profilePicture ? PF+user.profilePicture : PF +"sampleImg/noAvatar.jpg" } alt="ProfilePhoto" className='profileCoverUserImage' />
                             <PhotoCameraIcon className='profileCoverUserImageIcon' />
                         </Grid>
                         <br/>
@@ -57,7 +57,7 @@ function ProfilePage() {
                             <Rightbar user={user}/>
                         </Grid>
                         <Grid item sm={12} md={7}>
-                            <Feed username={user.username} userStatus/>
+                            <Feed username={user.username}/>
                         </Grid>
                        
                     </Grid>

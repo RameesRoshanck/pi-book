@@ -1,11 +1,56 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import './rightbar.css'
 import image from '../../assets/elonmask.jpeg'
 import Button from '@mui/material/Button';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { UserAuthContext } from '../../Context/UserContext';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 function Rightbar({user}) {
-
+ 
+  const PF=process.env.REACT_APP_PUBLIC_FOLDER;
+  const [friend,setFriend]=useState([])
+  const {authUser,setAuthUser}=useContext(UserAuthContext)
+  const [followed,setFollowed]=useState(false)
   // console.log(user,"suergfdsgsdfgdsfg");
+
+  useEffect(()=>{
+      setFollowed(authUser.followings.includes(user?.id))
+  },[authUser,user?.id])
+  // console.log(followed,'followed');
+
+  useEffect(()=>{
+   const getFriends=async ()=>{
+      try{
+        let res=await axios.get("http://localhost:8000/getFriends/"+user._id)
+        // console.log(res.data,'rightbar');
+        setFriend(res.data)
+      }catch(error){
+        console.log(error,'rightbar');
+      }
+   }
+   getFriends()
+  },[])
+
+  const handleClick=async(e)=>{
+    e.preventDefault()
+    try{
+      if(followed){
+        await axios.put("http://localhost:8000/followUser/"+user._id+"/follow",{userId:authUser._id})
+      }else{
+        await axios.put("http://localhost:8000/unfollowUser/"+user._id+"/unfollow",{userId:authUser._id})
+      }
+    }catch(error){
+      console.log(error,'handle click in right bar');
+    }
+    setFollowed(!followed)
+  }
+
+
+  // console.log(authUser,'user');
+
   const HomeRightBar=()=>{
     return(
      <div className="HomeRightBar">
@@ -29,6 +74,14 @@ function Rightbar({user}) {
   const ProfilePage=()=>{
     return(
       <>
+      {
+        user.username !==authUser.username && (
+          <button className='rightBarFollowButton' onClick={handleClick} >
+            {followed ? "Unfollow":"follow"}
+            {followed ? <RemoveIcon/>:<AddIcon/>}
+          </button>
+        )
+      }
       <h3 className='profileRightBarTitle' >User Profile:</h3>
       <div className='rightBarInfo mb-8'>
         <div className="rightbarInfoItem mb-1">
@@ -46,31 +99,19 @@ function Rightbar({user}) {
       </div>
       <h2>User Friends</h2>
       <div className="rightBarFollowings">
-        <div className="rightBarFollowing">
-          <img src={image} alt="FollowersImage" className="rightBarFollowingImage" />
-          <span className="rightBarFollowingName">Mohamed Ramees Roshan Ck</span>
-        </div>
-        <div className="rightBarFollowing">
-          <img src={image} alt="FollowersImage" className="rightBarFollowingImage" />
-          <span className="rightBarFollowingName">Mohamed Ramees Roshan Ck</span>
-        </div>
-        <div className="rightBarFollowing">
-          <img src={image} alt="FollowersImage" className="rightBarFollowingImage" />
-          <span className="rightBarFollowingName">Mohamed Ramees Roshan Ck</span>
-        </div>
-        <div className="rightBarFollowing">
-          <img src={image} alt="FollowersImage" className="rightBarFollowingImage" />
-          <span className="rightBarFollowingName">Mohamed Ramees Roshan Ck</span>
-        </div>
-        <div className="rightBarFollowing">
-          <img src={image} alt="FollowersImage" className="rightBarFollowingImage" />
-          <span className="rightBarFollowingName">Mohamed Ramees Roshan Ck</span>
-        </div>
-        <div className="rightBarFollowing">
-          <img src={image} alt="FollowersImage" className="rightBarFollowingImage" />
-          <span className="rightBarFollowingName">Mohamed Ramees Roshan Ck</span>
-        </div>
-      </div>
+        {
+          friend.map((data)=>{
+            return(
+              <Link to={"/profile/"+data.username} >
+              <div className="rightBarFollowing">
+              <img src={data.profilePicture? PF+data.profilePicture : PF+"sampleImg/noAvatar.jpg"} alt="FollowersImage" className="rightBarFollowingImage" />
+              <span className="rightBarFollowingName">{data.username}</span>
+            </div>
+            </Link>
+            )
+          })
+        }
+      </div> 
       </>
     )
   }

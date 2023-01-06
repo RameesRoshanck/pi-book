@@ -12,7 +12,7 @@ const path=require('path')
 
 app.use(cors())
 app.use(cookieParser()) 
-app.use('/images',express.static(path.join(__dirname,'public/images')))
+app.use("/images",express.static(path.join(__dirname,"public/images")))
 
 const PORT=process.env.PORT
 

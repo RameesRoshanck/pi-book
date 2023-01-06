@@ -8,7 +8,7 @@ import axios from 'axios'
 import { UserAuthContext } from '../../Context/UserContext'
 
 
-function Feed({userStatus,username}) {
+function Feed({username}) {
 // console.log(Posts,'feed posts');
       const [post,setPost]=useState([])
         // console.log(username,'.......');
@@ -29,12 +29,17 @@ function Feed({userStatus,username}) {
        }
        fetchPost()
       },[username,authUser._id])
+      
+      // console.log(username,'k');
+      // console.log(authUser.username,'l');
 
   const AddStatus=()=>{
     return(
       <>
-       
-       <Post/>
+       {
+        username===authUser.username && <Post/>
+       }
+        
        {
         post.map((data)=>{
           return(
@@ -50,7 +55,10 @@ function Feed({userStatus,username}) {
     return(
       <>
       <Status/>
-      <Post/>
+      {
+        username===authUser.username && <Post/>
+       }
+        
       {
         post.map((data)=>{
           return(

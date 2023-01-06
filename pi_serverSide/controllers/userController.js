@@ -29,6 +29,38 @@ const getSingleUser=async(req,res)=>{
     }
 }
 
+//get the all users 
+const allUsers=async(req,res)=>{
+   try{
+    let user=await User.find()
+    return res.status(200).json(user)
+   }catch(error){
+    console.log(error,'get all users');
+   }
+
+}
+
+//get the all friends
+
+const getFriends=async(req,res)=>{
+  try{
+    let id=req.params.id
+    let user=await User.findById(id)
+    let friends=await Promise.all(
+      user.followings.map((followerId)=>{
+        return User.findById(followerId)
+      })
+    )
+    let friendList=[];
+    friends.map((friend)=>{
+      friendList.push(friend)
+    })
+    return res.status(200).json(friendList)
+  }catch(error){
+    console.log(error,'getFriends');
+  }
+}
+
 
 //follow a user
 const followUser=async(req,res)=>{
@@ -87,6 +119,8 @@ const unFollowUser=async(req,res)=>{
 
 module.exports={
     updateUser,
+    allUsers,
+    getFriends,
     getSingleUser,
     followUser,
     unFollowUser

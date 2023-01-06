@@ -50,15 +50,17 @@ function Getpost({post}) {
         },[post.userId])
     
         
-        console.log(PF,'pf');
-    console.log(PF+post.img,'image');
+        // console.log(PF,'pf');
+    // console.log(PF+post.img,'image');
+    // console.log(user,'======');
 
   return (
     <div className='getpost'>
         <div className="getPostWrapper">
             <div className="getPostTop">
                 <div className="postTopLeft">
-                    <Link to={`profile/${user.username}`}>
+                    <Link to={`/profile/${user.username}`}>
+                    {/* <Link to={"/profile/abcd/ramees"}> */}
                     <img src={user.profilePicture? PF+user.profilePicture : PF+"sampleImg/noAvatar.jpg" } alt="images" className='getPostProfielImg'/>
                     </Link>
                     <div>
