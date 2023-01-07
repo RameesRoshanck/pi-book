@@ -13,7 +13,7 @@ function Rightbar({user}) {
   const PF=process.env.REACT_APP_PUBLIC_FOLDER;
   const [friend,setFriend]=useState([])
   const {authUser,setAuthUser}=useContext(UserAuthContext)
-  const [followed,setFollowed]=useState(false)
+  const [followed,setFollowed]=useState(authUser.followings.includes(user?.id))
   // console.log(user,"suergfdsgsdfgdsfg");
 
   useEffect(()=>{

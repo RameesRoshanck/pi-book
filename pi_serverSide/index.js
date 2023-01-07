@@ -4,6 +4,7 @@ const app=express()
 var cors = require('cors')
 const connectDB=require ('./config/confing')
 const Router=require ('./Routes/Routes')
+const chatRouter=require("./Routes/ChatRouter")
 var cookieParser = require('cookie-parser')
 const path=require('path')
 
@@ -21,6 +22,7 @@ connectDB()
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.use('/',Router)
+app.use('/chat',chatRouter)
 
 app.listen(PORT,()=>{
     console.log('server start');

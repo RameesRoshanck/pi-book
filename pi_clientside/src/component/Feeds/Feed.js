@@ -55,10 +55,10 @@ function Feed({username}) {
     return(
       <>
       <Status/>
-      {
+      {/* {
         username===authUser.username && <Post/>
-       }
-        
+       } */}
+        <Post/>
       {
         post.map((data)=>{
           return(

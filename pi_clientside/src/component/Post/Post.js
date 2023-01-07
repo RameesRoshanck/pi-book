@@ -5,6 +5,7 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import ShareIcon from '@mui/icons-material/Share';
 import { UserAuthContext } from '../../Context/UserContext';
 import axios from 'axios';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 function Post() {
   
@@ -49,6 +50,12 @@ function Post() {
               <input ref={desc} type="text" placeholder={"What's in your mind"+" "+authUser.username + "?"} className="postInput"  />
             </div>
           <hr className='posthr' />
+          {file && (
+            <div className="shareImageContainer">
+              <img className='shareImg'  src={URL.createObjectURL(file)} alt="" />
+                <CancelIcon className='shareCancel' onClick={()=>{setFile(null)}}/>
+            </div>
+          )}
             <form  className="share-bottom" onSubmit={handleSubmit}>
               <label htmlFor='file'  className="shareOption">
                 <AddAPhotoIcon  htmlColor="tomato" className='shareIcons'/>
