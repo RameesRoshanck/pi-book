@@ -8,6 +8,7 @@ import StarsIcon from '@mui/icons-material/Stars';
 import GroupsIcon from '@mui/icons-material/Groups';
 import MessageIcon from '@mui/icons-material/Message';
 import FlagCircleIcon from '@mui/icons-material/FlagCircle';
+import { Link } from 'react-router-dom';
 
 function Sidebar() {
   return (
@@ -39,8 +40,10 @@ function Sidebar() {
                 <span className='sidebarListItemText' >Group</span>
                 </li>
                 <li className="sidebarlistItem">
+                <Link to="/chat" >
                 <MessageIcon className='sidebarIcon' />
-                <span className='sidebarListItemText' >favorite</span>
+                <span className='sidebarListItemText' >Chat</span>
+                </Link>
                 </li>
                 <li className="sidebarlistItem">
                 <FlagCircleIcon className='sidebarIcon' />

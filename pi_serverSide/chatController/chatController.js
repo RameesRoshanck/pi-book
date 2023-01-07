@@ -14,8 +14,9 @@ const createChat =async(req,res)=>{
 }
 
 const userChat =async(req,res)=>{
+    // console.log(req.params);
     try{
-      const chat=await new chatModel.find({
+      const chat=await chatModel.find({
         members:{$in:[req.params.userId]}
       })
       return res.status(200).json(chat)

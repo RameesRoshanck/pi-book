@@ -71,7 +71,7 @@ function Login() {
         })
        }
     }
-
+// console.log(authUser,'login')
   return (
     <div className="parantDiv">
         <div className="auth-form-conatiner" >

@@ -3,7 +3,7 @@ const { addPost, updatePost, deletePost, likePost, getPost, getTimeLine, getAllP
 const {login, Signup, resetpass, getReset,verifyOtp } = require('../controllers/authController')
 const router=express.Router()
 const multer = require("multer");
-const { getSingleUser, followUser, unFollowUser,allUsers, getFriends } = require('../controllers/userController')
+const { getSingleUser, followUser, unFollowUser,allUsers, getFriends, getAUser } = require('../controllers/userController')
 
 
 
@@ -34,6 +34,8 @@ router.get('/getFriends/:id',getFriends)
 router.put("/followUser/:id/follow",followUser)
 //unfollow
 router.put("/unfollowUser/:id/unfollow",unFollowUser)
+//get a user with params id
+router.get("/getAuser/:id",getAUser)
 
 
 

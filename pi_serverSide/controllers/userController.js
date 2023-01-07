@@ -114,7 +114,20 @@ const unFollowUser=async(req,res)=>{
   }
 }
 
-
+//get a user with  prams id
+const getAUser=async(req,res)=>{
+   let id=req.params.id
+   try{
+     let user=await User.findById(id)
+     if(user){
+      const{password,...userDatails}=user._doc
+      return res.status(200).json(userDatails)
+     }else
+     return res.json({message:"not user found"})
+   }catch(error){
+    console.log(error,'get A user');
+   }
+}
 
 
 module.exports={
@@ -123,5 +136,6 @@ module.exports={
     getFriends,
     getSingleUser,
     followUser,
-    unFollowUser
+    unFollowUser,
+    getAUser
 }

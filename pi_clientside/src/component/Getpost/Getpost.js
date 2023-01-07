@@ -21,6 +21,7 @@ function Getpost({post}) {
     const [user,setUser]=useState({})
     const PF=process.env.REACT_APP_PUBLIC_FOLDER;
     const {authUser,setAuthUser}=useContext(UserAuthContext)
+//    console.log(authUser,'get post');
 
     useEffect(()=>{
         setIslike(post.like.includes(authUser._id))

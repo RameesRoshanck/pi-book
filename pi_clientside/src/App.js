@@ -9,6 +9,7 @@ import ProfilePage from './pages/Profile/ProfilePage';
 import Admin from './AdminPages/Admin';
 import ResetPasswordPages from './pages/ResetPages/ResetPasswordPages';
 import ForgetPages from './pages/ResetPages/ForgetPages';
+import ChatPages from './pages/chat/ChatPages';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path='/admin' element={<Admin/>} />
         <Route exact path='/reset' element={<ResetPasswordPages/>} />
         <Route path='/reset/:token' element={<ForgetPages/>} />
+        <Route path='/chat' element={<ChatPages/>} />
       </Routes>
     </BrowserRouter>
 
