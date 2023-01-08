@@ -12,7 +12,7 @@ router.get("/find/:firstId/:secondId",findchat)
 
 /* ---------------------------- //message router ---------------------------- */
 router.post('/message',addMessage)
-router.get("./message/:chatId",getMessage)
+router.get("/message/:chatId",getMessage)
 
 
 

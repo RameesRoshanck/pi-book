@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUser } from "../../api/ChatApi";
 
-function Conversation({ data, currentUserId }) {
+function Conversation({ data, currentUserId,online }) {
   const [userData, setUserData] = useState(null);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
@@ -20,9 +20,9 @@ function Conversation({ data, currentUserId }) {
   },[]);
   return (
     <>
-      <div className="followerConversation hover:bg-sky-600">
+      <div className="followerConversation  hover:bg-sky-600">
         <div className="followerConversationHeader  flex">
-          <div className="online-dot"></div>
+          {online && <div className="online-dot"></div>}
           {
             userData?.profilePicture ?
             <img src={ PF+userData?.profilePicture} alt="img"
@@ -36,7 +36,7 @@ function Conversation({ data, currentUserId }) {
           <div className="name py-1 mx-2" style={{ fontSize: "0.8rem" }}>
             <span>{userData?.username}</span>
             <br />
-            <span>Online</span>
+            <span>{online?"online":"offline"}</span>
           </div>
         </div>
       </div>

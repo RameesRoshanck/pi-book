@@ -2,6 +2,7 @@ const MessageModel=require ('../models/messageModel')
 
 
 const addMessage =async(req,res)=>{
+    console.log(req.body);
    const {chatId,senderId,text}=req.body
    try{
        const message=await new MessageModel({

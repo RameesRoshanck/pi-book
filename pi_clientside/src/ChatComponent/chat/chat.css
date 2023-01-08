@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: 22% auto;
     gap: 1rem;
+    height: auto;
   }
   
   .Left-side-chat {
@@ -18,7 +19,7 @@
     background: var(--cardColor);
     border-radius: 1rem;
     padding: 1rem;
-    height: auto;
+    height:400px;
     min-height: 80vh;
     overflow: scroll;
   }
