@@ -6,7 +6,7 @@ const User=require ('../models/user')
 //create post
 const addPost=async(req,res)=>{
     try{
-        console.log(req.body);
+        // console.log(req.body);
          const post=await new Post(req.body)
         await post.save()     
         return res.status(200).json({message:"successfully insert the post"})
@@ -47,9 +47,9 @@ const updatePost=async(req,res)=>{
 const deletePost=async(req,res)=>{
     try{
         const postId=req.params.id
-        let post=await Post.findOne({postId})
+        let post=await Post.findById(postId)
         if(post.userId===req.body.userId){
-            await Post.deleteOne({postId})
+            await Post.deleteOne()
             return res.status(200).json({message:"your post successfully Deleted"}) 
             }else{
                 return res.json({message:"you can Delete onlly your post"})
@@ -116,7 +116,6 @@ const getTimeLine=async(req,res)=>{
 
 const getAllPost=async(req,res)=>{
     let userName=req.params.username
-    // console.log(userName);
     try{
        let user=await User.findOne({username:userName})
        let post=await Post.find({userId:user._id})

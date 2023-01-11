@@ -18,18 +18,17 @@ function ProfilePage() {
     const [user,setUser]=useState({})
     const PF=process.env.REACT_APP_PUBLIC_FOLDER;
     const username=useParams().username
-    // const username="ramees"
+
+   
+
     useEffect(()=>{
         const fetchUser=async()=>{
-          let res=await axios.get(`http://localhost:8000/singleUser?username=${username}`)
-        //   singleUser?userId=${post.userId}
-          setUser(res.data.user)
-        //   console.log(res.data.user.username,'sdfasdfasdf===_________________=');
-        //   console.log('hello working');
-        }
-        fetchUser()
+            let res=await axios.get('http://localhost:8000/getSingleUserName/'+username)
+            setUser(res.data)
+          }
+        fetchUser();
         },[username])
-// console.log(user,"user");
+
   return (
         <Box>
         <Navbar/>
@@ -57,7 +56,7 @@ function ProfilePage() {
                             <Rightbar user={user}/>
                         </Grid>
                         <Grid item sm={12} md={7}>
-                            <Feed username={user.username}/>
+                            <Feed username={username}/>
                         </Grid>
                        
                     </Grid>

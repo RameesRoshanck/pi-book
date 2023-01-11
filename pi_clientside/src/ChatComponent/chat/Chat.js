@@ -78,7 +78,7 @@ function Chat() {
                chat.map((chats)=>{
                 return(
                   <div  onClick={()=>setCurentChat(chats)} > 
-                  <Conversation z-10  data={chats} currentUserId={authUser._id}
+                  <Conversation   data={chats} currentUserId={authUser._id}
                   online={checkonlineStatus(chat)} />
                   </div>
                 ) 

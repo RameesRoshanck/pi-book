@@ -3,7 +3,8 @@ const { addPost, updatePost, deletePost, likePost, getPost, getTimeLine, getAllP
 const {login, Signup, resetpass, getReset,verifyOtp } = require('../controllers/authController')
 const router=express.Router()
 const multer = require("multer");
-const { getSingleUser, followUser, unFollowUser,allUsers, getFriends, getAUser } = require('../controllers/userController')
+const { getSingleUser, followUser, unFollowUser,allUsers, getFriends, getAUser, updateUser, deleteAccount, getSingleUserName } = require('../controllers/userController')
+const verifyToken=require ("../Middleware/authMiddleware")
 
 
 
@@ -11,7 +12,7 @@ const { getSingleUser, followUser, unFollowUser,allUsers, getFriends, getAUser }
 //user signup
 router.post('/Signup',Signup)
 //user login
-router.post('/',login)
+router.post('/login',login)
 //user reset
 router.post('/reset',resetpass)
 //user reset new password
@@ -23,9 +24,14 @@ router.post('/verifyotp',verifyOtp)
 
 
 /* ------------------------ //userControllers routes ------------------------ */
-
+//update user
+router.post('/:id',updateUser)
+//delete user account
+router.delete('/:id',deleteAccount)
 //get single user
-router.get('/singleUser',getSingleUser)
+router.get('/',getSingleUser)
+//get single user
+router.get('/getSingleUserName/:id',getSingleUserName)
 //get  all users
 router.get('/allUsers',allUsers)
 //get all friends

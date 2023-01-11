@@ -53,7 +53,7 @@ function Navbar() {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
-                <img src={authUser.profilePicture? PF + authUser.profilePicture : PF +"sampleImg/noAvatar.jpg" } alt="profile img" className='navbarImg'/>
+                <img src={authUser?.profilePicture? PF + authUser.profilePicture : PF +"sampleImg/noAvatar.jpg" } alt="profile img" className='navbarImg'/>
               </IconButton>
             </Tooltip>
             <Menu
@@ -73,7 +73,7 @@ function Navbar() {
               onClose={handleCloseUserMenu}
             >
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Link to={`profile/${authUser.username}`} >
+                  <Link to={`profile/${authUser?.username}`} >
                   <Typography textAlign="center">Profile</Typography>
                   </Link>
                 </MenuItem>

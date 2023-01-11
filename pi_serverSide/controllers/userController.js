@@ -1,33 +1,79 @@
 const User=require('../models/user')
+const bcrypt = require('bcrypt');
 
 //update user details
-const updateUser=(req,res)=>{
-
+const updateUser=async(req,res)=>{
+    
+  try{
+     let id=re.params.id
+     if(req.body.password){
+      try{
+        req.body.password= await bcrypt.compare(req.body.password,10)
+      }catch(error){
+       console.log(error);
+      }
+     } 
+     try{
+      const update=await User.findByIdAndUpdate(id,{
+        $set:req.body
+      });
+      return res.json({message:"Account has been updated"})
+     }catch(error){
+      console.log(error);
+     } 
+  }catch(error){
+    console.log(error,"updateuser");
+  }
 }
 
 //delete userAccounte
-
+const deleteAccount=async(req,res)=>{
+  let id=req.params.id
+  try{
+       let deleteUser=await User.findByIdAndDelete(id)
+       return res.json({message:"successfully deleted"})
+  }catch(error){
+    console.log(error);
+  }
+}
 
 //get a user
 const getSingleUser=async(req,res)=>{
     try{
-        // let id=req.params.id
-        // console.log(req.query);
+        // console.log(req.query,'query');
         const userId=req.query.userId
-        const userName=req.query.username
-        // console.log(userName,'dsf');
-        // console.log(userId,'wer');
-        let users=userId ?
-         await User.findById({_id:userId})
-         :
-         await User.findOne({username:userName})
+        // const userName=req.query.username
+        // console.log(userName,'=======================');
+        let users=await User.findById({_id:userId})
+        // userId ?  :
+        //  await User.findOne({username:userName})
         //remove unnessary items(eg:password,updated at,etc.....)
-        const {password,updatedAt,__v,...user}=users._doc
-        return res.status(200).json({user})
+        // console.log(users,'users');
+        // const {password,updatedAt,__v,...user}=users._doc
+        return res.status(200).json(users)
     }catch(error){
         console.log(error,'getSingleUser');
     }
 }
+
+
+/* ------------------------ // get getSingleUserName ------------------------ */
+const getSingleUserName=async(req,res)=>{
+  try{
+    const userName=req.params.id
+    // console.log(req.params,'query');
+      // console.log(userName,'=======================');
+      let users=await User.findOne({username:userName})
+      // console.log(users,'getSingleUserName');
+      return res.status(200).json(users)
+  }catch(error){
+      console.log(error,'getSingleUser');
+  }
+}
+
+
+
+
 
 //get the all users 
 const allUsers=async(req,res)=>{
@@ -45,6 +91,7 @@ const allUsers=async(req,res)=>{
 const getFriends=async(req,res)=>{
   try{
     let id=req.params.id
+    console.log(id,'get friends');
     let user=await User.findById(id)
     let friends=await Promise.all(
       user.followings.map((followerId)=>{
@@ -137,5 +184,7 @@ module.exports={
     getSingleUser,
     followUser,
     unFollowUser,
-    getAUser
+    getAUser,
+    deleteAccount,
+    getSingleUserName
 }

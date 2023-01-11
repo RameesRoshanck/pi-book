@@ -46,8 +46,8 @@ function Post() {
     <div className='post' >
         <div className="postWrapper">
             <div className="share-top">
-              <img src={authUser.profilePicture? PF+authUser.profilePicture : PF+"sampleImg/noAvatar.jpg"} alt="images" className='postProfielImg'/>
-              <input ref={desc} type="text" placeholder={"What's in your mind"+" "+authUser.username + "?"} className="postInput"  />
+              <img src={authUser?.profilePicture? PF+authUser.profilePicture : PF+"sampleImg/noAvatar.jpg"} alt="images" className='postProfielImg'/>
+              <input ref={desc} type="text" placeholder={"What's in your mind"+" "+authUser?.username + "?"} className="postInput"  />
             </div>
           <hr className='posthr' />
           {file && (

@@ -3,6 +3,8 @@ const User=require ('../models/user');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 const userOtpVerification=require('../models/userOtpVerification');
+var jwt = require('jsonwebtoken');
+SECRET_KEY=process.env.SECRET_KEY
 
 
 const transporter=nodemailer.createTransport({
@@ -59,6 +61,7 @@ const Signup=async(req,res)=>{
 
 
 const login=async(req,res)=>{
+    // console.log(req.body);
     const {email,password}=req.body
     try{
         if(!(email && password)){
@@ -69,10 +72,11 @@ const login=async(req,res)=>{
                 let isMatch=await bcrypt.compare(password,emailExist.password)
                 // console.log(isMatch,'gdfg');
                 if(isMatch){
-                    console.log('success');
+                    // console.log('success');
                     let user=emailExist
                     // console.log(user,'emailexist user');
-                    return res.status(200).json({message:"successfully logined",user})
+                     const token =jwt.sign({id:user._id},SECRET_KEY,{expiresIn:"1h"})
+                    return res.status(200).json({message:"successfully logined",user,token})
                     }else{
                     return res.status(200).json({message:"incorect password"})
                 }
@@ -109,14 +113,14 @@ const resetpass=(req,res)=>{
                         <h3>click in this <a href="http://localhost:3000/reset/${token}"> link</a>to reset password</h3>
                         `
                     }).then(()=>{
-                        console.log('sdfsdfdfgdsf');
+                        // console.log('sdfsdfdfgdsf');
                         return res.json({message:"check your Email"})
                     }).catch((error)=>{
-                        console.log(error,'thenfgdfgdsf');
+                        // console.log(error,'thenfgdfgdsf');
                     })
               
                 }).catch((error)=>{
-                    console.log(error,'sdfsdf');
+                    console.log(error,'resetpass');
                 })
 
             })

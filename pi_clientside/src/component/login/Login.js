@@ -56,14 +56,14 @@ function Login() {
         setLoginErr(true)
         return false
        }else{
-        await axios.post("http://localhost:8000/",login).then((result)=>{
+        await axios.post("http://localhost:8000/login",login).then((result)=>{
           if(result.data.message==='Incorrect email Id'){
              toast("Incorrect email Id",toastOptions)
           }else if(result.data.message==='incorect password'){
              toast("incorect password",toastOptions)
           }else{
             setAuthUser(result.data.user)
-            localStorage.setItem('user',result.data.user)
+            localStorage.setItem("token",result.data.token)
             navigate("/home")
           }
         }).catch((error)=>{

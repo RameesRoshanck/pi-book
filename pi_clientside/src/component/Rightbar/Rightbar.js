@@ -16,23 +16,23 @@ function Rightbar({user}) {
   const [followed,setFollowed]=useState(authUser.followings.includes(user?.id))
   // console.log(user,"suergfdsgsdfgdsfg");
 
-  useEffect(()=>{
-      setFollowed(authUser.followings.includes(user?.id))
-  },[authUser,user?.id])
-  // console.log(followed,'followed');
+  // useEffect(()=>{
+  //     setFollowed(authUser.followings.includes(user._id))
+  // },[authUser,user._id])
+  // console.log(followed,'followed==================================++++++');
 
   useEffect(()=>{
    const getFriends=async ()=>{
-      try{
-        let res=await axios.get("http://localhost:8000/getFriends/"+user._id)
-        // console.log(res.data,'rightbar');
-        setFriend(res.data)
-      }catch(error){
-        console.log(error,'rightbar');
-      }
+      // try{
+      //   let res=await axios.get("http://localhost:8000/getFriends/"+user._id)
+      //   // console.log(res.data,'rightbar');
+      //   setFriend(res.data)
+      // }catch(error){
+      //   console.log(error,'rightbar');
+      // }
    }
    getFriends()
-  },[])
+  },[user])
 
   const handleClick=async(e)=>{
     e.preventDefault()
@@ -42,10 +42,10 @@ function Rightbar({user}) {
       }else{
         await axios.put("http://localhost:8000/unfollowUser/"+user._id+"/unfollow",{userId:authUser._id})
       }
+      setFollowed(!followed)
     }catch(error){
       console.log(error,'handle click in right bar');
     }
-    setFollowed(!followed)
   }
 
 

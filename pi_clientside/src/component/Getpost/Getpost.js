@@ -30,7 +30,6 @@ function Getpost({post}) {
     const likeSubmit=async()=>{
         try{
          await axios.put("http://localhost:8000/userlike/"+post._id+"/like",{userId:authUser._id}).then((result)=>{
-            console.log(result.data.message);
             setLike(result)
           })
         }catch(error){
@@ -42,18 +41,11 @@ function Getpost({post}) {
 
     useEffect(()=>{
         let fetchUser=async()=>{
-          let res=await axios.get(`http://localhost:8000/singleUser?userId=${post.userId}`)
-          setUser(res.data.user)
-        //   console.log(res.data.user,'getPost');
+          let res=await axios.get(`http://localhost:8000/?userId=${post.userId}`)
+          setUser(res.data)
          }
-        //  console.log('hai');
          fetchUser()
         },[post.userId])
-    
-        
-        // console.log(PF,'pf');
-    // console.log(PF+post.img,'image');
-    // console.log(user,'======');
 
   return (
     <div className='getpost'>
@@ -61,7 +53,6 @@ function Getpost({post}) {
             <div className="getPostTop">
                 <div className="postTopLeft">
                     <Link to={`/profile/${user.username}`}>
-                    {/* <Link to={"/profile/abcd/ramees"}> */}
                     <img src={user.profilePicture? PF+user.profilePicture : PF+"sampleImg/noAvatar.jpg" } alt="images" className='getPostProfielImg'/>
                     </Link>
                     <div>
