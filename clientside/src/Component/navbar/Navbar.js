@@ -6,10 +6,12 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
 
     const PF=process.env.REACT_APP_PUBLIC_FOLDER;
+    const navigate=useNavigate()
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -26,7 +28,7 @@ function Navbar() {
     <div className="nav-bar-container-light grid grid-cols-3 gap-2 ">
           <div className=' header-logo' >
             <h1 className="text-3xl font-bold leading-normal pl-3 pb-2 text-slate-800 " onClick={(e)=>{
-                
+                navigate("/")
             }} ><span className='cursor-pointer '>pi-book</span> </h1>
           </div>
           {/* <div className=''> */}

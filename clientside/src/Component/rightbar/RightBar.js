@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import './rightbar.css'
 import Button from '@mui/material/Button';
 
-function RightBar({userProfile}) {
+function RightBar({user}) {
   
   const PF=process.env.REACT_APP_PUBLIC_FOLDER;
 
@@ -32,15 +32,15 @@ function RightBar({userProfile}) {
       <div className='rightBarInfo mb-8'>
         <div className="rightbarInfoItem mb-1">
           <span className="rightbarInfPlace">City:</span>
-          <span className="rightbarInfPlaceName">kottakkal</span>
+          <span className="rightbarInfPlaceName">{user.city}</span>
         </div>
         <div className="rightbarInfoItem mb-1 ">
           <span className="rightbarInfPlace">From:</span>
-          <span className="rightbarInfPlaceName">puthupparamba</span>
+          <span className="rightbarInfPlaceName">{user.from}</span>
         </div>
         <div className="rightbarInfoItem mb-1">
           <span className="rightbarInfPlace">Relationship:</span>
-          <span className="rightbarInfPlaceName">single</span>
+          <span className="rightbarInfPlaceName">{user.relationship}</span>
         </div>
       </div>
       <h2>User Friends</h2>
@@ -58,7 +58,7 @@ function RightBar({userProfile}) {
   return (
     <Fragment>
         {
-            userProfile?
+            user ?
     <div className='rightBar1' style={{marginTop:'9px'}}>
         <div className="rightBarWrapper1">
          
