@@ -11,6 +11,7 @@ function GetPost() {
     const[open,setOpen]=useState(false)
 
     const PF=process.env.REACT_APP_PUBLIC_FOLDER;
+    console.log(PF,'pf for get post');
   return (
     <div className='getpost'>
         <div className="getPostWrapper">
