@@ -10,6 +10,7 @@ import Admin from './AdminPages/Admin';
 import ResetPasswordPages from './pages/ResetPages/ResetPasswordPages';
 import ForgetPages from './pages/ResetPages/ForgetPages';
 import ChatPages from './pages/chat/ChatPages';
+import Sample from './pages/Sample';
 
 
 function App() {
@@ -20,15 +21,16 @@ function App() {
     <div className="App">
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<LoginPage/>} />
-        <Route path='/signup' element={<SignupPage/>} />
-        <Route path='/home' element={<HomePage/>} />
+        <Route path='/' element={<Sample />} />
+        {/* <Route path='/' element={<LoginPage/>} /> */}
+        {/* <Route path='/signup' element={<SignupPage/>} />
+        <Route exact path='/' element={<HomePage/>} />
         <Route path='/test' element={<Test/>} />
         <Route path='/profile/:username' element={<ProfilePage/>} />
         <Route path='/admin' element={<Admin/>} />
         <Route exact path='/reset' element={<ResetPasswordPages/>} />
         <Route path='/reset/:token' element={<ForgetPages/>} />
-        <Route path='/chat' element={<ChatPages/>} />
+        <Route path='/chat' element={<ChatPages/>} /> */}
       </Routes>
     </BrowserRouter>
 

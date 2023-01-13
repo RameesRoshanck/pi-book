@@ -90,7 +90,7 @@ const verify=(e)=>{
    else{
     axios.post("http://localhost:8000/verifyotp",data).then((data)=>{
       console.log(data.data.message,'message');
-      navigate("/")
+      navigate("/login")
     }).catch((error)=>{
       console.log(error,'otp catch errror');
     })

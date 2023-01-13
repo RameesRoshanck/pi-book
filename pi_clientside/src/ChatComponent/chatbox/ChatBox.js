@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './chatbox.css'
 import { addMessage, getMessages, getUser } from '../../api/ChatApi';
-import { format} from 'timeago.js';
+// import { format} from 'timeago.js';
 import InputEmoji from "react-input-emoji";
 
 function ChatBox({chat,curentUserId,setSendMessages,receiveMessage}) {
@@ -134,7 +134,7 @@ function ChatBox({chat,curentUserId,setSendMessages,receiveMessage}) {
                     }
                   >
               <span>{message.text}</span>{" "}
-              <span>{format(message.createdAt)}</span>
+              {/* <span>{format(message.createdAt)}</span> */}
             </div>
             </>
           ))

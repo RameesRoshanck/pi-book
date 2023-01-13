@@ -1,29 +1,27 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { Fragment,useEffect, useState } from 'react'
 import Getpost from '../Getpost/Getpost'
 import Post from '../Post/Post'
 import './feed.css'
 import axios from 'axios'
-import { UserAuthContext } from '../../Context/UserContext'
 
 
 
 
 function Feed({username}) {
       const [post,setPost]=useState([])
-      const {authUser,setAuthUser}=useContext(UserAuthContext)
 
   console.log(username,'feed username');
       useEffect(()=>{
       let fetchPost=async()=>{
         let res= username
          ? await axios.get("http://localhost:8000/profile/"+username)
-         : await axios.get("/getTimeline/"+authUser._id)
+         : await axios.get("/getTimeline/63ad765b0a0ecda115fed9ab")
         setPost(res.data.sort((p1,p2)=>{
           return new Date(p2.createdAt)-new Date(p1.createdAt)
         }))
        }
        fetchPost()
-      },[username,authUser._id])
+      },[username])
 
   return (
     <Fragment>

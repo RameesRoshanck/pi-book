@@ -43,7 +43,7 @@ function VerifyPassword() {
       //  }
       console.log(token,'5566');
        axios.post("http://localhost:8000/resetNew",{reset,token}).then((result)=>{
-        navigate("/home")
+        navigate("/login")
           console.log(result.data.message,'result');
        }).catch((error)=>{
         console.log(error,'error');

@@ -1,5 +1,5 @@
 import './navbar.css'
-import React, { useContext } from 'react'
+import React from 'react'
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -7,13 +7,13 @@ import Menu from '@mui/material/Menu';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 // import Avatar from '@mui/material/Avatar';
-import { Link, useNavigate } from "react-router-dom";
-import { UserAuthContext } from '../../Context/UserContext';
+import {useNavigate } from "react-router-dom";
+// import { UserAuthContext } from '../../Context/UserContext';
 
 
 
 function Navbar() {
-  const {authUser,setAuthUser}=useContext(UserAuthContext)
+  // const {authUser,setAuthUser}=useContext(UserAuthContext)
   // console.log(authUser.username,'authuser');
   const PF=process.env.REACT_APP_PUBLIC_FOLDER;
 
@@ -53,7 +53,7 @@ function Navbar() {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
-                <img src={authUser?.profilePicture? PF + authUser.profilePicture : PF +"sampleImg/noAvatar.jpg" } alt="profile img" className='navbarImg'/>
+                <img src={PF +"sampleImg/noAvatar.jpg" } alt="profile img" className='navbarImg'/>
               </IconButton>
             </Tooltip>
             <Menu
@@ -73,9 +73,9 @@ function Navbar() {
               onClose={handleCloseUserMenu}
             >
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Link to={`profile/${authUser?.username}`} >
+                  {/* <Link to={`profile/${authUser?.username}`} > */}
                   <Typography textAlign="center">Profile</Typography>
-                  </Link>
+                  {/* </Link> */}
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Logout</Typography>

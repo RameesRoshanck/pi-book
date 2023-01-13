@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './getpost.css'
 import image from '../../assets/elonmask.jpeg'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -9,9 +9,8 @@ import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 // import {Users} from  '../../Dummydata'
 import axios from 'axios';
-import { format} from 'timeago.js';
+// import { format} from 'timeago.js';
 import { Link } from 'react-router-dom';
-import { UserAuthContext } from '../../Context/UserContext';
 
 function Getpost({post}) {
 
@@ -20,21 +19,19 @@ function Getpost({post}) {
     const [islike,setIslike]=useState(false)
     const [user,setUser]=useState({})
     const PF=process.env.REACT_APP_PUBLIC_FOLDER;
-    const {authUser,setAuthUser}=useContext(UserAuthContext)
-//    console.log(authUser,'get post');
 
-    useEffect(()=>{
-        setIslike(post.like.includes(authUser._id))
-    },[authUser._id,post.like])
+    // useEffect(()=>{
+    //     setIslike(post.like.includes(authUser._id))
+    // },[authUser._id,post.like])
 
     const likeSubmit=async()=>{
-        try{
-         await axios.put("http://localhost:8000/userlike/"+post._id+"/like",{userId:authUser._id}).then((result)=>{
-            setLike(result)
-          })
-        }catch(error){
-            console.log(error,'likeSubmit');
-        }
+        // try{
+        //  await axios.put("http://localhost:8000/userlike/"+post._id+"/like",{userId:authUser._id}).then((result)=>{
+        //     setLike(result)
+        //   })
+        // }catch(error){
+        //     console.log(error,'likeSubmit');
+        // }
         setLike(islike ? like-1:like+1)
         setIslike(!islike) // it means or setislike(islike===false)
     }
@@ -57,7 +54,7 @@ function Getpost({post}) {
                     </Link>
                     <div>
                         <p className='postUserName' >{user.username}</p>
-                        <p className="postDate pl-2">{format(post.createdAt)}</p>
+                        {/* <p className="postDate pl-2">{format(post.createdAt)}</p> */}
                     </div>
                 </div>
                 <div className="postTopRight">

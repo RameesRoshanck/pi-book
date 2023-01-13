@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React from 'react'
 import Feed from '../component/Feeds/Feed'
 import Navbar from '../component/navbar/Navbar'
 import Rightbar from '../component/Rightbar/Rightbar'
@@ -7,28 +7,16 @@ import BottomNavbar from '../component/BottomNavbar/BottomNavbar'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import './homepage.css'
-import { UserAuthContext } from '../Context/UserContext'
+
 
 
 
 
 function HomePage() {
 
-  const {authUser,setAuthUser}=useContext(UserAuthContext)
-  // useEffect(()=>{
-  //   console.log(authUser,'usercontext');
-  // })
 
   
   return (
-    // <div>
-    //     <Navbar/>
-    //     <div className="homecontainer">
-    //     <Sidebar/>
-    //     <Feed/>
-    //     <Rightbar/>
-    //     </div>
-    // </div>
      <Box sx={{ width: '100%' }}>
       <Navbar/>
      <Grid  container rowSpacing={{sm:0,md:0}} columnSpacing={{ md:1,}}>

@@ -1,10 +1,10 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { Fragment,useEffect, useState } from 'react'
 import './rightbar.css'
 import image from '../../assets/elonmask.jpeg'
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { UserAuthContext } from '../../Context/UserContext';
+// import { UserAuthContext } from '../../Context/UserContext';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
@@ -12,8 +12,8 @@ function Rightbar({user}) {
  
   const PF=process.env.REACT_APP_PUBLIC_FOLDER;
   const [friend,setFriend]=useState([])
-  const {authUser,setAuthUser}=useContext(UserAuthContext)
-  const [followed,setFollowed]=useState(authUser.followings.includes(user?.id))
+  // const {authUser,setAuthUser}=useContext(UserAuthContext)
+  // const [followed,setFollowed]=useState(authUser.followings.includes(user?.id))
   // console.log(user,"suergfdsgsdfgdsfg");
 
   // useEffect(()=>{
@@ -36,16 +36,16 @@ function Rightbar({user}) {
 
   const handleClick=async(e)=>{
     e.preventDefault()
-    try{
-      if(followed){
-        await axios.put("http://localhost:8000/followUser/"+user._id+"/follow",{userId:authUser._id})
-      }else{
-        await axios.put("http://localhost:8000/unfollowUser/"+user._id+"/unfollow",{userId:authUser._id})
-      }
-      setFollowed(!followed)
-    }catch(error){
-      console.log(error,'handle click in right bar');
-    }
+    // try{
+    //   if(followed){
+    //     await axios.put("http://localhost:8000/followUser/"+user._id+"/follow",{userId:authUser._id})
+    //   }else{
+    //     await axios.put("http://localhost:8000/unfollowUser/"+user._id+"/unfollow",{userId:authUser._id})
+    //   }
+    //   setFollowed(!followed)
+    // }catch(error){
+    //   console.log(error,'handle click in right bar');
+    // }
   }
 
 
@@ -74,14 +74,14 @@ function Rightbar({user}) {
   const ProfilePage=()=>{
     return(
       <>
-      {
+      {/* {
         user.username !==authUser.username && (
           <button className='rightBarFollowButton' onClick={handleClick} >
             {followed ? "Unfollow":"follow"}
             {followed ? <RemoveIcon/>:<AddIcon/>}
           </button>
         )
-      }
+      } */}
       <h3 className='profileRightBarTitle' >User Profile:</h3>
       <div className='rightBarInfo mb-8'>
         <div className="rightbarInfoItem mb-1">
