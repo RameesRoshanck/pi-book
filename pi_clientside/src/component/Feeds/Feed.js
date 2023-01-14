@@ -5,7 +5,7 @@ import './feed.css'
 import axios from 'axios'
 
 
-
+console.log('feed page');
 
 function Feed({username}) {
       const [post,setPost]=useState([])

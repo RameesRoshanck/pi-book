@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './navbar.css'
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -7,9 +7,11 @@ import Menu from '@mui/material/Menu';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../App';
 
 function Navbar() {
 
+     const {state}=useContext(AuthContext)
     const PF=process.env.REACT_APP_PUBLIC_FOLDER;
     const navigate=useNavigate()
 
