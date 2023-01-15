@@ -19,9 +19,11 @@ updatedAt:{
     type:Date,
     default:Date.now()
 }
-},
-{
-    timeStamp:true,
-})
+}
+// ,
+// {
+//     timeStamp:true,
+// }
+)
 
 module.exports=Mongoose.model('message',messageSchema)

@@ -22,8 +22,6 @@ function ProfilePage() {
      }
      fetchUser()
     },[username])
-
-
   return (
     <Box>
         <Navbar/>
@@ -35,8 +33,8 @@ function ProfilePage() {
                 <Grid item sm={12} md={12} className="profile">
                     <Grid item sm={12} md={12} className="profileTop">
                         <Grid className="profileCover">
-                            <img src={ PF +"sampleImg/noCoverimg.jpg"} alt="coverPhoto" className='profileCoverPhoto' />
-                            <img src={PF +"sampleImg/noAvatar.jpg" } alt="ProfilePhoto" className='profileCoverUserImage' />
+                            <img src={user.coverPicture ? PF + user.coverPicture : PF +"sampleImg/noCoverimg.jpg"} alt="coverPhoto" className='profileCoverPhoto' />
+                            <img src={user.profilePicture ? PF + user.profilePicture : PF +"sampleImg/noAvatar.jpg" } alt="ProfilePhoto" className='profileCoverUserImage' />
                             <PhotoCameraIcon className='profileCoverUserImageIcon' />
                         </Grid>
                         <br/>

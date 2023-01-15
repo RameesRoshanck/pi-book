@@ -4,7 +4,11 @@ export const UserAuthContext=createContext(null)
 
 
 export default function Context({children}){
-    const [authUser,setAuthUser]=useState(null)
+
+    
+    const defaultUser=JSON.parse(localStorage.getItem('userProfile'))
+
+    const [authUser,setAuthUser]=useState(defaultUser)
 
     return(
         <UserAuthContext.Provider value={{authUser,setAuthUser}} >

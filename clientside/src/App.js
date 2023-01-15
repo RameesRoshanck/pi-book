@@ -4,6 +4,7 @@ import HomePage from './Pages/homepage/HomePage';
 import ProfilePage from './Pages/profilepage/ProfilePage';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import {createContext, useEffect, useState } from 'react'
+import ChatPages from './Pages/Chat/ChatPages';
 export const AuthContext=createContext(null)
 
 function App() {
@@ -14,8 +15,8 @@ const [state,setState]=useState(null)
   useEffect(()=>{
   const users= localStorage.getItem('user')
   setState(users)
-    console.log(users,'jdsgkhdsfkg===');
   },[state])
+  
 
   return (
     <AuthContext.Provider value={{state,setState}}>
@@ -25,6 +26,7 @@ const [state,setState]=useState(null)
         <Route exact path='/login' element={state ? <HomePage/> : <LoginPage/>} />
         <Route path='/' element={state ? <HomePage/> : <LoginPage/> } />
         <Route path='/profile/:username' element={<ProfilePage/>} />
+        <Route path='/chat' element={<ChatPages/>} />
       </Routes>
       </BrowserRouter>
     </div>

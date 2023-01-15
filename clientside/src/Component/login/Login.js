@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import {ToastContainer,toast } from 'react-toastify';
 import axios from 'axios'
 import { AuthContext } from '../../App';
+import { UserAuthContext } from '../../redux/AuthContext';
 
 function Login() {
    
   const {setState}=useContext(AuthContext)
+  const {setAuthUser}=useContext(UserAuthContext)
 
   let navigate = useNavigate();
   const [login,setLogin]=useState({
@@ -49,9 +51,11 @@ function Login() {
          }else if(result.data.message==='incorect password'){
             toast("incorect password",toastOptions)
          }else{
+          window.localStorage.setItem("userProfile",JSON.stringify(result.data.user))
           localStorage.setItem('user',JSON.stringify(result.data.user.username))
           localStorage.setItem('token',JSON.stringify(result.data.token))
           setState(result.data.user.username)
+          setAuthUser(result.data.user)
            navigate("/")
          }
        }).catch((error)=>{
@@ -59,7 +63,6 @@ function Login() {
        })
       }
    }
-
   return (
     <div className="parantDiv">
     <div className="auth-form-conatiner" >

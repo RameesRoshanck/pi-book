@@ -62,9 +62,10 @@ var storage = multer.diskStorage({
 
 //multer use
 const upload=multer({storage:storage})
-router.post("/upload",upload.array("file",1),(req,res)=>{
+
+router.put("/upload",upload.array("file",1),(req,res)=>{
     try{
-        console.log(req.body);
+        // console.log(req.body,'+++++++++');
          return res.status(200).json({message:"successfully upload image"})
     }catch(error){
         console.log(error,'upload image');
@@ -72,8 +73,11 @@ router.post("/upload",upload.array("file",1),(req,res)=>{
 })
 
 
+
+
+
 //create a post
-router.post("/addpost",addPost)
+router.put("/addpost",addPost)
 //update a post
 router.put("/updatePost/:id",updatePost)
 //delete a post

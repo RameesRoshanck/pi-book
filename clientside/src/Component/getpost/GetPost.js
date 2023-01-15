@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './getpost.css'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -8,6 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import {Link,} from "react-router-dom";
+import { UserAuthContext } from '../../redux/AuthContext';
 
 
 
@@ -15,11 +16,16 @@ function GetPost({post}) {
 
     const[open,setOpen]=useState(false)
     const[user,setUser]=useState({})
+    const {authUser}=useContext(UserAuthContext)
 
     const[like,setLike]=useState(post.like.length)
     const [isLike,setIsLike]=useState(false)
 
     const PF=process.env.REACT_APP_PUBLIC_FOLDER;
+
+    useEffect(()=>{
+        setIsLike(post.like.includes(authUser._id))
+    },[authUser._id,post.like])
 
 
     useEffect(()=>{
@@ -30,9 +36,16 @@ function GetPost({post}) {
           fetchUser()
     },[post.userId])
 
-    const likehandler=()=>{
-        setLike( isLike ? like -1 : like + 1 )
-        setIsLike(!isLike);
+    const likehandler=async()=>{
+        try{
+            await axios.put("http://localhost:8000/userlike/"+post._id+"/like",{userId:authUser._id}).then((result)=>{
+               setLike(result)
+             })
+           }catch(error){
+               console.log(error,'likeSubmit');
+           }
+           setLike(isLike? like-1:like+1)
+           setIsLike(!isLike)
     }
    
   return (

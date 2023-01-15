@@ -4,37 +4,37 @@ const bcrypt = require('bcrypt');
 //update user details
 const updateUser=async(req,res)=>{
     
-  try{
-     let id=re.params.id
-     if(req.body.password){
-      try{
-        req.body.password= await bcrypt.compare(req.body.password,10)
-      }catch(error){
-       console.log(error);
-      }
-     } 
-     try{
-      const update=await User.findByIdAndUpdate(id,{
-        $set:req.body
-      });
-      return res.json({message:"Account has been updated"})
-     }catch(error){
-      console.log(error);
-     } 
-  }catch(error){
-    console.log(error,"updateuser");
-  }
+  // try{
+  //    let id=req.params.id
+  //    if(req.body.password){
+  //     try{
+  //       req.body.password= await bcrypt.compare(req.body.password,10)
+  //     }catch(error){
+  //      console.log(error);
+  //     }
+  //    } 
+  //    try{
+  //     const update=await User.findByIdAndUpdate(id,{
+  //       $set:req.body
+  //     });
+  //     return res.json({message:"Account has been updated"})
+  //    }catch(error){
+  //     console.log(error);
+  //    } 
+  // }catch(error){
+  //   console.log(error,"updateuser");
+  // }
 }
 
 //delete userAccounte
 const deleteAccount=async(req,res)=>{
-  let id=req.params.id
-  try{
-       let deleteUser=await User.findByIdAndDelete(id)
-       return res.json({message:"successfully deleted"})
-  }catch(error){
-    console.log(error);
-  }
+  // let id=req.params.id
+  // try{
+  //      let deleteUser=await User.findByIdAndDelete(id)
+  //      return res.json({message:"successfully deleted"})
+  // }catch(error){
+  //   console.log(error);
+  // }
 }
 
 //get a user
@@ -89,10 +89,10 @@ const allUsers=async(req,res)=>{
 //get the all friends
 
 const getFriends=async(req,res)=>{
+  console.log(req.params.id,'get friends');
   try{
-    let id=req.params.id
-    console.log(id,'get friends');
-    let user=await User.findById(id)
+    let userName=req.params.id
+    let user=await User.findOne({username:userName})
     let friends=await Promise.all(
       user.followings.map((followerId)=>{
         return User.findById(followerId)
@@ -100,7 +100,8 @@ const getFriends=async(req,res)=>{
     )
     let friendList=[];
     friends.map((friend)=>{
-      friendList.push(friend)
+      const {_id,username,profilePicture}=friend
+     friendList.push({_id,username,profilePicture})
     })
     return res.status(200).json(friendList)
   }catch(error){
