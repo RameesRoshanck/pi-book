@@ -8,7 +8,9 @@ function Conversation({ data, CurrentUserId, online }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
+    
     const userId = data.members.find((id) => id !== CurrentUserId);
+
     const getUserData = async () => {
       try {
         const { data } = await getUser(userId);

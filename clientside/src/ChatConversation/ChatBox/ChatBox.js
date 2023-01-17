@@ -10,16 +10,58 @@ function ChatBox({ chat, CurrentUserId, setSendMessage, recieveMessage }) {
 
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState({});
   const [messages, setMessages] = useState([]);
   const [newMessages, setNewMessages] = useState("");
-  const [state,setState]=useState("");
   const scroll = useRef();
   const imageRef=useRef()
 
   const handleChange = (newMessages) => {
     setNewMessages(newMessages);
   };
+
+
+    // Send Message
+    const handleSend = async (e) => {
+      e.preventDefault();
+      const message = {
+        senderId: CurrentUserId,
+        text: newMessages,
+        chatId: chat._id,
+      };
+      //send message to socket server
+      const recieverId = chat.members.find((id) => id !== CurrentUserId);
+      setSendMessage({ ...message, recieverId });
+      //send message to database
+      try {
+        const { data } = await addMessage(message);
+        setMessages([...messages, data]);
+        setNewMessages("");
+      } catch (error) {
+        console.log(error, "handle send");
+      }
+    };
+
+
+
+
+
+   // Receive Message from parent component
+   useEffect(() => {
+    console.log(recieveMessage,'receivmessage');
+     if (recieveMessage !== null && recieveMessage.chatId === chat._id) {
+      console.log("Message Arrived: ", recieveMessage);
+      setMessages([...messages, recieveMessage]);
+    }
+  }, [recieveMessage]);
+
+
+
+    //Always scroll to the last message
+    useEffect(() => {
+      scroll.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+
 
 
   // fetching data for header
@@ -42,58 +84,39 @@ function ChatBox({ chat, CurrentUserId, setSendMessage, recieveMessage }) {
 
 
 //   fetch messages
-  useEffect(() => {
-    alert("chatId:",chat);
-    const fetchMessages = async () => {
-      try {
-        let { data } = await getMessages(chat?._id);
-        console.log(data,'get message');
-        setMessages(data);
-      } catch (error) {
-        console.log(error, "fetchmessages");
-      }
-    };
-    if (chat !== null) fetchMessages();
-  }, [chat]);
+  // useEffect(() => {
+  //   const fetchMessages = async () => {
+  //     try {
+  //       const { data } = await getMessages(chat._id);
+  //       console.log(data,'get message');
+  //       setMessages(data);
+  //     } catch (error) {
+  //       console.log(error, "fetchmessages");
+  //     }
+  //   };
+  //   if (chat !== null) fetchMessages();
+  // }, [chat]);
+
+    
+    
+  useEffect(()=>{
+    console.log('haaaaaaaaaaaaawu');
+     if(chat !== null && chat.members){
+      getMessages(chat._id).then(({data})=>{
+        setMessages(data)
+      })
+     }
+     console.log(messages,'oooooooooooooooooo');
+  },[chat])
+  console.log(messages,'kkkkkkkkkkk');
 
 
 
 
-  //Always scroll to the last message
-  useEffect(() => {
-    scroll.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
 
 
 
-  // Send Message
-  const handleSend = async (e) => {
-    e.preventDefault();
-    const message = {
-      senderId: CurrentUserId,
-      text: newMessages,
-      chatId: chat._id,
-    };
-    //send message to socket server
-    const recieverId = chat.members.find((id) => id !== CurrentUserId);
-    setSendMessage({ ...messages, recieverId });
-    //send message to database
-    try {
-      const { data } = await addMessage(message);
-      setMessages([...messages, data]);
-      setNewMessages("");
-    } catch (error) {
-      console.log(error, "handle send");
-    }
-  };
-
-  // Receive Message from parent component
-  useEffect(() => {
-    console.log("Message Arrived: ", recieveMessage);
-    if (recieveMessage !== null && recieveMessage.chatId === chat._id) {
-      setMessages([...messages, recieveMessage]);
-    }
-  }, [recieveMessage]);
+ 
 
 
 
@@ -141,7 +164,7 @@ function ChatBox({ chat, CurrentUserId, setSendMessage, recieveMessage }) {
                         : "message"
                     }
                   >
-                    <span>{message.text}</span>{" "}
+                    <span>{message.text}</span>
                     <span>{format(message.createdAt)}</span>
                   </div>
                 </>

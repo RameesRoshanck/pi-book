@@ -23,9 +23,6 @@ function Feed({username}) {
     },[username,authUser._id])
 
 
-    console.log(username,'username');
-    console.log(authUser.username,'authUser.username');
-
   return (
  <Fragment>
 

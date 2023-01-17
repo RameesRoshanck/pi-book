@@ -1,4 +1,4 @@
-import React,{useContext, useState} from 'react'
+import React,{useState} from 'react'
 import './Signup.css'
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
@@ -160,7 +160,9 @@ const verify=(e)=>{
         <button className="btn" type="submit" >Register</button>
       </form>
       <button className="link-btn">Forgotten password? </button>
-      <button className="link-btn">Don't have an account ? Sign up here..</button>
+      <button onClick={()=>{
+          navigate("/login")
+      }} className="link-btn">Don't have an account ? Sign up here..</button>
       <ToastContainer/>
     </div>
     }

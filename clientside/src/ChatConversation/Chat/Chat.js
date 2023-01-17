@@ -16,6 +16,41 @@ function Chat() {
   const [sendMessage, setSendMessage] = useState(null);
   const [recieveMessage, setRecieveMessage] = useState(null);
 
+
+
+
+    // Connect to Socket.io
+    useEffect(() => {
+      socket.current = io("http://localhost:8800")
+      socket.current.emit("new-user-add", authUser._id)
+      socket.current.on("get-users", (users) => {
+        setOnlineUsers(users);
+        // console.log(onlineUsers,'onlineusers');
+      });
+    }, [authUser]);
+
+
+    //sending message from socket server
+    useEffect(() => {
+      console.log(sendMessage,'sendmessage');
+      if (sendMessage !== null) {
+        socket.current.emit("send-messages", sendMessage);
+      }
+    }, [sendMessage]);
+
+ 
+  //receive massage from socket server
+  useEffect(() => {
+    console.log('chat recieve useeffect');
+    socket.current.on("recieve-message",(data) => {
+      console.log(data,'chat-recivemessage');
+      setRecieveMessage(data);
+    });
+  }, []);
+
+
+
+
   // Get the chat in chat section
   useEffect(() => {
     let getChat = async () => {
@@ -28,34 +63,16 @@ function Chat() {
       }
     };
     getChat();
-  }, [authUser._id]);
-
-  // Connect to Socket.io
-  useEffect(() => {
-    socket.current = io('http://localhost:8800')
-    socket.current.emit("new-user-add", authUser._id)
-    socket.current.on("get-users", (users) => {
-      setOnlineUsers(users);
-      // console.log(onlineUsers,'onlineusers');
-    });
   }, [authUser]);
 
 
-    //sending message from socket server
-    useEffect(() => {
-      if (sendMessage !== null) {
-        socket.current.emit("send-messages", sendMessage);
-      }
-    }, [sendMessage]);
 
 
-  //receive massage from socket server
-  useEffect(() => {
-    socket.current.on("recieve-message",(data) => {
-      alert("data:",data);
-      setRecieveMessage(data);
-    });
-  }, []);
+
+
+
+
+
 
 
 

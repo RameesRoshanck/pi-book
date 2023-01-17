@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import TextField from '@mui/material/TextField';
-import './ResetPassword.css'
+import './forgetPassword.css'
 import axios from 'axios';
 import swal from 'sweetalert'
  import { ToastContainer, toast } from 'react-toastify';
@@ -8,7 +8,7 @@ import swal from 'sweetalert'
  import { useNavigate } from "react-router-dom";
 
 
-function ResetPassword(){
+function ForgetPassword(){
   let navigate = useNavigate();
     const [reset,setReset]=useState({
       email:"",
@@ -71,4 +71,4 @@ function ResetPassword(){
   )
 }
 
-export default ResetPassword
+export default ForgetPassword

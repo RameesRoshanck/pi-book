@@ -56,7 +56,7 @@ function Login() {
           localStorage.setItem('token',JSON.stringify(result.data.token))
           setState(result.data.user.username)
           setAuthUser(result.data.user)
-           navigate("/")
+           navigate("/login")
          }
        }).catch((error)=>{
          console.log(error) 
@@ -96,10 +96,10 @@ function Login() {
       </form>
       <button  onClick={()=>{
             
-      }} className="link-btn">Forgotten password? </button>
+      }} className="link-btn">Forgotten  password? </button>
       
       <button onClick={()=>{
-             
+             navigate("/signup")
       }} className="link-btn">Don't have an account ? Sign up here..</button>
     </div>
     <ToastContainer/>

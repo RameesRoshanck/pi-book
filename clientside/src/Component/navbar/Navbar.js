@@ -8,9 +8,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuthContext } from '../../redux/AuthContext';
+import { AuthContext } from '../../App';
 
 
 function Navbar() {
+
+  const {setState}=useContext(AuthContext)
 
      const {authUser}=useContext(UserAuthContext)
     const PF=process.env.REACT_APP_PUBLIC_FOLDER;
@@ -26,6 +29,15 @@ function Navbar() {
     const handleCloseUserMenu = () => {
       setAnchorElUser(null);
     };
+
+    function logout(e){
+      localStorage.removeItem("token")
+      window.localStorage.removeItem("userProfile")
+      localStorage.removeItem('user')
+      setState(" ")
+      navigate("/login")
+  }
+
   return (
     <div>
     <div className="nav-bar-container-light grid grid-cols-3 gap-2 ">
@@ -77,7 +89,7 @@ function Navbar() {
               </Link>
             </MenuItem>
             <MenuItem onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">Logout</Typography>
+              <Typography onClick={logout}  textAlign="center">Logout</Typography>
             </MenuItem>
         </Menu>
       </Box>

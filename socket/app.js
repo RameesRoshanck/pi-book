@@ -13,14 +13,13 @@ io.on("connection", (socket) => {
     socket.on("new-user-add", (newUserId) => {
         // if user is not added previously
         if (!activeUsers.some((user) => user.userId === newUserId)) {
-            activeUsers.push({
-            userId: newUserId,
-            socketId: socket.id,
-        });
+            activeUsers.push({userId: newUserId,socketId: socket.id});
+            console.log("user is connected", activeUsers);
         }
-        // console.log("user is connected", activeUsers);
         io.emit("get-users", activeUsers);
     });
+
+
 
 
     socket.on("disconnected", () => {
@@ -31,21 +30,19 @@ io.on("connection", (socket) => {
     });
 
 
-
-
-    //send message
-    socket.on("send-messages", (data) => {
+       //send message
+       socket.on("send-messages", (data) => {
         const { recieverId } = data;
         console.log(activeUsers,'aaaaaaaaaaaaaaaaaaaaaaaa');
         const user = activeUsers.find((user) => user.userId === recieverId);
         console.log("sending from socket to:", recieverId);
-        // console.log(data, "Data");
+        console.log(data, "Data");
         console.log(user,'/////////////////////////////');
         if (user) {
         io.to(user.socketId).emit("recieve-message", data); 
+        console.log(data,'recieve data');
         }
-    })
-
+      })
     });
 
 

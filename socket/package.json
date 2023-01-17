@@ -12,8 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "nodemon": "^2.0.20",
-    "socket.io": "^4.5.4",
-    "socket.io-client": "^4.5.4",
-    "timeago.js": "^4.0.2"
+    "socket.io": "^4.5.4"
   }
 }
