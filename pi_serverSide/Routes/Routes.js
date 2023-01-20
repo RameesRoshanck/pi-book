@@ -1,10 +1,28 @@
 const express=require ('express')
-const { addPost, updatePost, deletePost, likePost, getPost, getTimeLine, getAllPost } = require('../controllers/postController')
+const { addPost, updatePost, deletePost, likePost, getPost, getTimeLine, getAllPost, addComment, getComment } = require('../controllers/postController')
 const {login, Signup, resetpass, getReset,verifyOtp } = require('../controllers/authController')
 const router=express.Router()
 const multer = require("multer");
-const { getSingleUser, followUser, unFollowUser,allUsers, getFriends, getAUser, updateUser, deleteAccount, getSingleUserName } = require('../controllers/userController')
-const verifyToken=require ("../Middleware/authMiddleware")
+const { getSingleUser, followUser, unFollowUser,allUsers, getFriends, getAUser, updateUser, deleteAccount, getSingleUserName, descUpdate, unFollowersList } = require('../controllers/userController')
+const verifyToken=require ("../Middleware/authMiddleware");
+// const { addComment, getComment } = require('../controllers/commentController');
+
+
+var storage = multer.diskStorage({   
+    destination: function(req, file, cb) { 
+       cb(null, 'public/images');    
+    }, 
+    filename: function (req, file, cb) { 
+       cb(null,file.originalname);   
+    
+    }
+ });
+
+//multer use
+const upload=multer({storage:storage})
+
+
+
 
 
 
@@ -25,7 +43,7 @@ router.post('/verifyotp',verifyOtp)
 
 /* ------------------------ //userControllers routes ------------------------ */
 //update user
-router.post('/:id',updateUser)
+router.put('/:id',updateUser)
 //delete user account
 router.delete('/:id',deleteAccount)
 //get single user
@@ -35,33 +53,35 @@ router.get('/getSingleUserName/:id',getSingleUserName)
 //get  all users
 router.get('/allUsers',allUsers)
 //get all friends
-router.get('/getFriends/:id',getFriends)
+router.get('/getFriends/:username',getFriends)
 //follow
 router.put("/followUser/:id/follow",followUser)
 //unfollow
 router.put("/unfollowUser/:id/unfollow",unFollowUser)
 //get a user with params id
 router.get("/getAuser/:id",getAUser)
+//user description and profile photo
+router.post('/descUpdate/:id', descUpdate)
+
+router.put("/uploadProfilePicture",upload.single("file"),(req,res)=>{
+    try{
+        // console.log(req.body,'+++++++++');
+         return res.status(200).json({message:"successfully upload image"})
+    }catch(error){
+        console.log(error,'upload image');
+    }
+})
 
 
+//user get unfollowers list
+router.get("/unFollowersList/:id",unFollowersList)
 
 
 /* ------------------------------ //post router -------------------------------- */
 
 
 
-var storage = multer.diskStorage({   
-    destination: function(req, file, cb) { 
-       cb(null, 'public/images');    
-    }, 
-    filename: function (req, file, cb) { 
-       cb(null,file.originalname);   
-    
-    }
- });
 
-//multer use
-const upload=multer({storage:storage})
 
 router.put("/upload",upload.array("file",1),(req,res)=>{
     try{
@@ -90,6 +110,21 @@ router.get("/getPost/:id",getPost)
 router.get("/getTimeline/:userId",getTimeLine)
 //get user all post
 router.get("/profile/:username",getAllPost)
+// add post comment
+router.put('/addComment/:id',addComment)
+//get comment
+router.get("/getComment/:id",getComment)
+
+
+
+
+/* ----------------------------- //comment route ---------------------------- */
+
+// //add comment
+// router.post('/addComment/:id',addComment)
+// //get comment
+// router.get("/getComment/:id",getComment)
+
 
 
 

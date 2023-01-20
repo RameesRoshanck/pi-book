@@ -95,7 +95,7 @@ function Login() {
         <button className="btn" type="submit" >Log In</button>
       </form>
       <button  onClick={()=>{
-            
+            navigate("/forgetPassword")
       }} className="link-btn">Forgotten  password? </button>
       
       <button onClick={()=>{

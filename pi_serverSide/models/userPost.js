@@ -37,7 +37,28 @@ const postSchema=new Mongoose.Schema({
      createdAt:{
         type:Date,
         default:Date.now()
-    }
+    },
+    comments:[
+        {
+            desc:{
+                type:String
+            },
+            postId:{
+                type:String,
+                required:true
+            },
+            userId:{
+                type:String,
+                required:true,
+                ref:User
+            },
+             createdAt:{
+                type:Date,
+                default:Date.now()
+            }
+
+        }
+    ]
 })
 
 module.exports=Mongoose.model("post",postSchema)

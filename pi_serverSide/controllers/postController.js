@@ -127,6 +127,44 @@ const getAllPost=async(req,res)=>{
 }
 
 
+//add comment
+const addComment=async(req,res)=>{
+    try{
+       const {userId,desc}=req.body
+       const id=req.params.id
+          let comment={
+               userId:userId,
+               desc:desc,
+               postId:id
+          }
+
+       let addCmd=await Post.findByIdAndUpdate({_id:id},
+        {
+          $push:{comments:comment}
+        })
+        console.log(addCmd,'....................');
+        res.json(addCmd)
+    }catch(error){
+        console.log(error,'add comment');
+    }
+}
+
+//get comment
+
+const getComment=async(req,res)=>{
+    // console.log(req.params.id);
+    try{
+        let id=req.params.id
+          let findComment=await Post.findOne({postId:id}).populate("comments.userId")
+        //   const {like,video,img,password,updatedAt,__v,...user}=findComment._doc
+        //   console.log(findComment);
+          return res.json(findComment)
+    }catch(error){
+        console.log(error,'get comment');
+    }
+}
+
+
 module.exports={
     addPost,
     updatePost,
@@ -134,5 +172,7 @@ module.exports={
     likePost,
     getPost,
     getTimeLine,
-    getAllPost
+    getAllPost,
+    addComment,
+    getComment
 }
