@@ -1,4 +1,4 @@
-// const Comment=require ("../models/CommentModels")
+const Comment=require ("../models/CommentModels")
 
 
 
@@ -21,19 +21,19 @@
 // }
 
 
-// const getComment=async(req,res)=>{
-//     // console.log(req.params.id);
-//     try{
-//         let id=req.params.id
-//           let findComment=await Comment.findOne({postId:id}).populate("userId")
-//         //   console.log(findComment);
-//           return res.json({comments:findComment})
-//     }catch(error){
-//         console.log(error,'get comment');
-//     }
-// }
+const getComments=async(req,res)=>{
+    // console.log(req.params.id);
+    try{
+        let id=req.params.id
+          let findComment=await Comment.findOne({postId:id}).populate("userId")
+          console.log(findComment);
+          return res.json({comments:findComment})
+    }catch(error){
+        console.log(error,'get comment');
+    }
+}
 
-// module.exports={
-//     addComment,
-//     getComment
-// }
+module.exports={
+    // addComment,
+    getComments
+}

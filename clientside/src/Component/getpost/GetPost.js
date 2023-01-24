@@ -15,7 +15,7 @@ function GetPost({ post }) {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({});
   const [comment, setComment] = useState("");
-  const [seeComment,setSeeComment]=useState([])
+  const [getComments,setGetComments]=useState([])
   const { authUser } = useContext(UserAuthContext);
 
   const [like, setLike] = useState(post.like.length);
@@ -38,6 +38,23 @@ function GetPost({ post }) {
     };
     fetchUser();
   }, [post.userId]);
+
+
+
+    useEffect(()=>{
+      console.log(post._id,'post._id');
+        let fetchComment=async()=>{
+          try{
+            let {data}=await axios.get("http://localhost:8000/getComments/" + post._id)
+            setGetComments(data.comments)
+          }catch(error){
+            console.log(error,'fetchComment');
+          } 
+        }
+        fetchComment()
+        console.log(getComments,'getComments');
+    },[post._id])
+
 
 
 
@@ -66,11 +83,9 @@ function GetPost({ post }) {
       desc:comment,
     };
     try {
-      // console.log(newCmd,'newCmd');
       await axios
         .post("http://localhost:8000/addComment/" + post._id, newCmd)
         .then((res) => {
-          // console.log(res.data);
           setComment("");
         });
     } catch (error) {
@@ -78,15 +93,8 @@ function GetPost({ post }) {
     }
   };
 
-  useEffect(()=>{
-  let fetchCMD=async()=>{
-      let {data}=await axios.get(`http://localhost:8000/getComment/${post._id}`)
-      setSeeComment(data.comments)
-   }
-   fetchCMD ()
-  },[])
 
-// console.log(seeComment,'seeComment');
+
   return (
     <div className="getpost">
       <div className="getPostWrapper">
@@ -113,7 +121,7 @@ function GetPost({ post }) {
           </div>
         </div>
         <div className="getPostCenter my-2">
-          <span className="postText">post</span>
+          <span className="postText">{post.desc}</span>
           <img src={PF + post.img} alt="images" className="post-image mt-2" />
         </div>
         <div className="getPostBottom mt-7">
@@ -141,25 +149,22 @@ function GetPost({ post }) {
           {open ? (
             <div>
               <div className="postbottomComment">
-
-                {
-                  seeComment.map((comments)=>{
-                    console.log(comments.userId.username,'comment.userId');
-                    return(
-                      <div className="Comment flex my-3">
-                      <img src={comments.userId?.profilePicture?  PF + comments.userId.profilePicture : PF + "sampleImg/noAvatar.jpg"
-                } alt="images" className="cmmnt-img" />
+                 {/* {
+                  // Object.keys(getComments).map(function(key, value) 
+                  getComments && Object.keys(getComments)?.map((key, value) => {
+                    return( */}
+                    <div className="Comment flex my-3">
+                      <img src={getComments?.userId?  PF + getComments?.userId.profilePicture : PF + "sampleImg/noAvatar.jpg"
+                      } alt="images" className="cmmnt-img" />
                       <div>
-                          <p className="postUserName">{comments.userId.username}</p>
-                          <p className="postDate pl-2">{format(comments.createdAt)}</p>
+                       <p className="postUserName">{getComments?.userId.username}</p>
+                        <p className="postDate pl-2">{format(getComments?.createdAt)}</p>
                       </div>
-                      <p className="text-cmd">{comments.desc}</p>
-                  </div>
-                    )
+                      <p className="text-cmd">{getComments?.desc}</p>
+                   </div>
+                  {/* )
                   })
-                }
-               
-
+                } */}
               </div>
               <form className="flex mt-5 userComment" onSubmit={handleSubmit}>
                 <input

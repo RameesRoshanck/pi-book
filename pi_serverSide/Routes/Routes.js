@@ -5,6 +5,7 @@ const router=express.Router()
 const multer = require("multer");
 const { getSingleUser, followUser, unFollowUser,allUsers, getFriends, getAUser, updateUser, deleteAccount, getSingleUserName, descUpdate, unFollowersList } = require('../controllers/userController')
 const verifyToken=require ("../Middleware/authMiddleware");
+const { getComments } = require('../controllers/commentController');
 // const { addComment, getComment } = require('../controllers/commentController');
 
 
@@ -123,7 +124,7 @@ router.get("/getComment/:id",getComment)
 // //add comment
 // router.post('/addComment/:id',addComment)
 // //get comment
-// router.get("/getComment/:id",getComment)
+router.get("/getComments/:id",getComments)
 
 
 
