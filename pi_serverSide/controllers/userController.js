@@ -82,11 +82,10 @@ const getFriends = async (req, res) => {
 
 //follow a user
 const followUser = async (req, res) => {
-  console.log("hai");
   try {
     let paramsId = req.params.id;
     let userId = req.body.userId;
-    //   console.log(paramsId,userId,'params id and user id');
+      // console.log(paramsId,userId,'params id and user id');
     if (userId !== paramsId) {
       let user = await User.findById(paramsId);
       let currentUser = await User.findById(userId);
@@ -134,6 +133,7 @@ const unFollowUser = async (req, res) => {
   }
 };
 
+
 //get a user with  prams id
 const getAUser = async (req, res) => {
   let id = req.params.id;
@@ -148,6 +148,8 @@ const getAUser = async (req, res) => {
   }
 };
 
+
+//description and profile picture updation
 const descUpdate = async (req, res) => {
   // console.log(req.body,'req.body');
   try {
@@ -208,6 +210,12 @@ const unFollowersList = async (req, res) => {
   }
 };
 
+
+//user search
+const searchUser=(req,res)=>{
+
+}
+
 module.exports = {
   updateUser,
   allUsers,
@@ -220,4 +228,5 @@ module.exports = {
   getSingleUserName,
   descUpdate,
   unFollowersList,
+  searchUser
 };

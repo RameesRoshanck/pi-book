@@ -13,6 +13,7 @@ import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { AuthContext } from '../../App';
+import { addUserChat } from '../../Api/ChatRequest';
 
 
 const style = {
@@ -135,6 +136,35 @@ function RightBar({user}) {
   }
 
 
+  //user add follow and add to chat 
+
+  const handleFollow=async(id)=>{
+    let putFollowing=async()=>{
+      console.log(id,'id');
+      try{
+         let res= await axios.put("http://localhost:8000/followUser/"+id+"/follow",{userId:authUser._id})
+      }catch(error){
+        console.log(error);
+      }
+    }
+
+    let postAddNewUser=async()=>{
+      console.log(id,'id2');
+      let addNewChatUser={
+        senderId:authUser._id,
+        receverId:id
+      }
+      try{
+   let value=await axios.post("http://localhost:8000/chat",addNewChatUser)
+      }catch(error){
+        console.log(error);
+      }
+    }
+    postAddNewUser()
+    putFollowing()
+  }
+
+
   const HomeRightBar=()=>{
     return(
      <div className="HomeRightBar">
@@ -150,7 +180,7 @@ function RightBar({user}) {
                   <span className="rightBarOnline"></span>
                  </div>
                  <span className='rightBarUserName'>{obj.username}</span>
-                 <Button className='follows' variant="contained">Follow</Button>
+                 <Button className='follows' onClick={(e)=>{handleFollow(obj._id)}} variant="contained">Follow</Button>
                 </li>
                   )
                 })

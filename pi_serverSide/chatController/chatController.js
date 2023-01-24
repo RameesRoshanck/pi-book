@@ -2,10 +2,12 @@
 const chatModel=require('../models/ChatModel')
 
 const createChat =async(req,res)=>{
+    // console.log(req.body,'req.body in create chat');
         const newChat=await new chatModel({
             members:[req.body.senderId,req.body.receverId] 
         })
    try{
+    // console.log(newChat,'new chat');
          const result=await newChat.save()
          return res.status(200).json(result)
     }catch(error){
