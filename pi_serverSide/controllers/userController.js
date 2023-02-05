@@ -36,10 +36,7 @@ const getSingleUser = async (req, res) => {
 const getSingleUserName = async (req, res) => {
   try {
     const userName = req.params.id;
-    // console.log(req.params,'query');
-    // console.log(userName,'=======================');
     let users = await User.findOne({ username: userName });
-    // console.log(users,'getSingleUserName');
     return res.status(200).json(users);
   } catch (error) {
     console.log(error, "getSingleUser");
@@ -59,11 +56,9 @@ const allUsers = async (req, res) => {
 //get the all friends
 
 const getFriends = async (req, res) => {
-  console.log(req.params, "get friends");
   try {
     let userName = req.params.username;
     let user = await User.findOne({ username: userName });
-    console.log(user, "user");
     let friends = await Promise.all(
       user.followings.map((followerId) => {
         return User.findById(followerId);
@@ -85,7 +80,6 @@ const followUser = async (req, res) => {
   try {
     let paramsId = req.params.id;
     let userId = req.body.userId;
-      // console.log(paramsId,userId,'params id and user id');
     if (userId !== paramsId) {
       let user = await User.findById(paramsId);
       let currentUser = await User.findById(userId);
@@ -112,7 +106,6 @@ const unFollowUser = async (req, res) => {
   try {
     let paramsId = req.params.id;
     let userId = req.body.userId;
-    //   console.log(paramsId,userId,'params id and user id');
     if (userId !== paramsId) {
       let user = await User.findById(paramsId);
       let currentUser = await User.findById(userId);
@@ -151,7 +144,6 @@ const getAUser = async (req, res) => {
 
 //description and profile picture updation
 const descUpdate = async (req, res) => {
-  // console.log(req.body,'req.body');
   try {
     let userId = req.body.userId;
     let user = await User.findByIdAndUpdate(
@@ -163,7 +155,6 @@ const descUpdate = async (req, res) => {
         },
       }
     );
-    // console.log(user,'user user');
     return res.json(user);
   } catch (error) {
     console.log(error);
@@ -172,7 +163,6 @@ const descUpdate = async (req, res) => {
 
 //update user details
 const updateUser = async (req, res) => {
-  console.log(req.body, "req.body");
   try {
     let id = req.params.id;
     let user = await User.findById(id);
@@ -184,10 +174,9 @@ const updateUser = async (req, res) => {
             $set: req.body,
           }
         );
-        console.log(user, "update user details");
         return res.json(user);
       } catch (error) {
-        console.log(error);
+        console.log(error,'updateUser');
       }
     } else {
       return res.json({ message: "this user not found" });
@@ -212,8 +201,18 @@ const unFollowersList = async (req, res) => {
 
 
 //user search
-const searchUser=(req,res)=>{
+const searchUser=async(req,res)=>{
 
+   let data=req.params.searching
+  //  console.log(req.params,'data');
+  try{
+    let user=await User.find({
+      username:{ $regex: "^" + data, $options: "i" } },
+    { username:1,profilePicture:1})
+    return res.json(user)
+   }catch(error){
+    console.log(error,'search error');
+   }
 }
 
 module.exports = {

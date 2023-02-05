@@ -3,7 +3,7 @@ const { addPost, updatePost, deletePost, likePost, getPost, getTimeLine, getAllP
 const {login, Signup, resetpass, getReset,verifyOtp } = require('../controllers/authController')
 const router=express.Router()
 const multer = require("multer");
-const { getSingleUser, followUser, unFollowUser,allUsers, getFriends, getAUser, updateUser, deleteAccount, getSingleUserName, descUpdate, unFollowersList } = require('../controllers/userController')
+const { getSingleUser, followUser, unFollowUser,allUsers, getFriends, getAUser, updateUser, deleteAccount, getSingleUserName, descUpdate, unFollowersList, searchUser } = require('../controllers/userController')
 const verifyToken=require ("../Middleware/authMiddleware");
 const { getComments } = require('../controllers/commentController');
 // const { addComment, getComment } = require('../controllers/commentController');
@@ -76,6 +76,9 @@ router.put("/uploadProfilePicture",upload.single("file"),(req,res)=>{
 
 //user get unfollowers list
 router.get("/unFollowersList/:id",unFollowersList)
+
+//search user
+router.post("/searchUser/:searching",searchUser)
 
 
 /* ------------------------------ //post router -------------------------------- */

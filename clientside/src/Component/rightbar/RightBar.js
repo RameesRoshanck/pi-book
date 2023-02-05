@@ -86,7 +86,7 @@ function RightBar({user}) {
 
 
    useEffect(()=>{
-    console.log('work ======');
+    // console.log('work ======');
    let fetchAllUser=async()=>{
       try{
         let {data}=await axios.get(`http://localhost:8000/unFollowersList/${authUser._id}`)

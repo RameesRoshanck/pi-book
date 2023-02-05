@@ -24,7 +24,6 @@ const updatePost=async(req,res)=>{
         const postId=req.params.id
         let post=await Post.findOne({postId})
         if(post.userId===req.body.userId){
-            // console.log(post,'post details');
             if(!desc){
                 return res.json({message:"The post couldn't update"}) 
             }else{
@@ -65,9 +64,7 @@ const likePost=async(req,res)=>{
     try{
         let postId=req.params.id
         let userId=req.body.userId
-        console.log(req.params.id,req.body.userId);
         let post=await Post.findById(postId)
-        console.log(post,'post');
         if(!post.like.includes(userId)){
             await Post.updateOne({$push:{like:userId}})
             return res.status(200).json({message:"your post has been liked"}) 
@@ -86,7 +83,6 @@ const getPost=async(req,res)=>{
     try{
         let PostId=req.params.id
         let post=await Post.findById(PostId).populate('userId')
-        // console.log(post);
         return res.status(200).json({message:"get sigle post successfully",post}) 
     }catch(error){
         console.log(error,'getPost');
@@ -99,7 +95,6 @@ const getTimeLine=async(req,res)=>{
       try{
         let userid=req.params.userId
          let currentUser=await User.findById(userid)
-        //  console.log(currentUser,'hai time line curent user');
          let userPost=await Post.find({userId:currentUser._id})
          let FriendsPost=await Promise.all(
             currentUser.followings.map((dataId)=>{
@@ -142,7 +137,7 @@ const addComment=async(req,res)=>{
         {
           $push:{comments:comment}
         })
-        console.log(addCmd,'....................');
+        // console.log(addCmd,'....................');
         res.json(addCmd)
     }catch(error){
         console.log(error,'add comment');

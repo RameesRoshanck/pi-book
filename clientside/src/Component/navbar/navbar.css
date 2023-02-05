@@ -45,3 +45,8 @@
   object-fit: cover;
   margin-right: 10px;
 }
+.searchDiv{
+  max-height:150px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

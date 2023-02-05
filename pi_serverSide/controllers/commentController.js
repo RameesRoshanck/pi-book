@@ -26,7 +26,7 @@ const getComments=async(req,res)=>{
     try{
         let id=req.params.id
           let findComment=await Comment.findOne({postId:id}).populate("userId")
-          console.log(findComment);
+        //   console.log(findComment);
           return res.json({comments:findComment})
     }catch(error){
         console.log(error,'get comment');

@@ -42,7 +42,7 @@ function GetPost({ post }) {
 
 
     useEffect(()=>{
-      console.log(post._id,'post._id');
+      // console.log(post._id,'post._id');
         let fetchComment=async()=>{
           try{
             let {data}=await axios.get("http://localhost:8000/getComments/" + post._id)
@@ -52,7 +52,7 @@ function GetPost({ post }) {
           } 
         }
         fetchComment()
-        console.log(getComments,'getComments');
+        // console.log(getComments,'getComments');
     },[post._id])
 
 
